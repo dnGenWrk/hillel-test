@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hello</title>
+	</head>
+	<body>
+		<script>
+			let userName = prompt('What is your name ?', '');
+			if (userName) {
+				const userSurvey = confirm(`Hello, ${userName}! Are you feeling good?`);
+				if (userSurvey) {
+					alert(`Great, ${userName}! \nGlad to hear this!`);
+				} else {
+					alert(
+						`Ough! It's sad to hear that. \nHopefully, it won't be for long`,
+					);
+				}
+			}
+		</script>
+	</body>
+</html>
