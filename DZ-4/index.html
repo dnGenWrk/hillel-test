@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ДЗ 4. Портрет користувача</title>
+	</head>
+	<body>
+		<script>
+			const userBirth = parseInt(prompt('рік народження ?', ''), 10);
+			let city = prompt('в якому місті живеш ?', '');
+			let favoritsSport = prompt('улюблений вид спорту ?', '');
+			const messagesStore = {
+				sorryMessage: '',
+				textAlert: '',
+			};
+
+			if (!userBirth || !city || !favoritsSport) {
+				messagesStore.sorryMessage = 'Шкода, що Ви не захотіли ввести свій(ю)';
+			}
+			if (userBirth) {
+				messagesStore.textAlert = `Ваш вik = ${2023 - userBirth}`;
+			} else {
+				messagesStore.sorryMessage += '\nВik';
+			}
+
+			if (city) {
+				city.toLowerCase() === 'kиїв' ||
+				city.toLowerCase() === 'вашингтон' ||
+				city.toLowerCase() === 'лондон'
+					? (messagesStore.textAlert += `\nТи живеш у столиці ${city}`)
+					: (messagesStore.textAlert += `\nTи живеш у місті ${city}`);
+			} else {
+				messagesStore.sorryMessage += '\nMістo';
+			}
+
+			const sportChamps = [
+				['футбол', 'Криштиану Роналду'],
+				['Бокс', 'Майк Тайсон'],
+				['Теннис', 'Новак Джокович'],
+			];
+			if (favoritsSport) {
+				for (let sport of sportChamps) {
+					if (sport[0].toLowerCase() === favoritsSport.toLowerCase()) {
+						messagesStore.textAlert += `\nКруто! Хочеш стати ${sport[1]}?`;
+					}
+				}
+			} else {
+				messagesStore.sorryMessage += '\nУлюблений спорт';
+			}
+
+			alert(messagesStore.textAlert + '\n' + messagesStore.sorryMessage);
+		</script>
+	</body>
+</html>
