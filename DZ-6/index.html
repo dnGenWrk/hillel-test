@@ -7,44 +7,38 @@
 	</head>
 	<body>
 		<script>
-			console.log(
-				'1. Вивести числа від 20 до 30 через пропуск, використовуючи крок 0,5 (20 20,5 21 21,5….).',
-			);
+			console.log('1. Вивести числа від 20 до 30 через пропуск, використовуючи крок 0,5 (20 20,5 21 21,5….).');
 			let result = '';
 			for (let i = 20; i <= 30; i += 0.5) {
 				result += ' ' + i;
 			}
 			console.log(result.trim().replaceAll('.', ','));
 
-			console.log(
-				'\n2. Один долар коштує 27 гривень. Вивести дані з розрахунком вартості 10, 20, 30... 100 доларів',
-			);
+			console.log('\n2. Один долар коштує 27 гривень. Вивести дані з розрахунком вартості 10, 20, 30... 100 доларів');
 
 			const currency = 27;
 			for (let i = 10; i <= 100; i += 10) {
-				console.log(`$${i} = ${i * currency}грн`);
+				console.log(`$${i} = ${i * currency}грн.`);
 			}
 
-			console.log(
-				'\n3. Дане ціле число. Вивести всі цілі числа від 1 до 100, квадрат яких не перевищує числа N',
-			);
+			console.log('\n3. Дане ціле число. Вивести всі цілі числа від 1 до 100, квадрат яких не перевищує числа N');
 			const numN = 50;
+			let resultNumSqrt = '';
 			for (let i = 1; i <= 100; i++) {
 				if (i ** 2 <= numN) {
-					console.log(i);
+					resultNumSqrt += ' ' + i;
 				}
 			}
+			console.log(`Число ${numN} \nResult: ${resultNumSqrt}`);
 
-			console.log(
-				"\n4. Дане ціле число. З'ясувати, чи є воно простим (простим називається число, більше 1, які не мають інших дільників крім 1 і себе)",
-			);
+			console.log("\n4. Дане ціле число. З'ясувати, чи є воно простим (простим називається число, більше 1, які не мають інших дільників крім 1 і себе)");
 
-			const numNumber = 14;
+			const numNumber = 65;
 			let primeNumMessage = 'Просте число';
-			outer_primeNumLabel: for (let i = 2; i < numNumber; i++) {
+			for (let i = 2; i < numNumber; i++) {
 				if (numNumber % i === 0) {
 					primeNumMessage = 'Число не э простим';
-					break outer_primeNumLabel;
+					break;
 				}
 			}
 			console.log(`Число ${numNumber} ${primeNumMessage}`);
@@ -52,14 +46,13 @@
 			console.log(
 				'\n5. Дане деяке число. Визначити, чи можна одержати це число шляхом зведення числа 3 у деякий ступінь. (Наприклад, числа 9, 81 можна отримати, а 13 - не можна).)',
 			);
-			const someNumber = 91;
+
+			const someNumber = 82;
 			let resultMessage = 'Не мiжна';
-			outer_label: for (let i = 1; i < someNumber; i++) {
-				for (let j = i; j < someNumber; j++) {
-					if (3 ** j === someNumber) {
-						resultMessage = 'Miжна';
-						break outer_label;
-					}
+			for (let i = 1; i < someNumber; i++) {
+				if (3 ** i === someNumber) {
+					resultMessage = 'Miжна';
+					break;
 				}
 			}
 			console.log(`Число ${someNumber} ${resultMessage}`);
