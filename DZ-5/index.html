@@ -7,9 +7,7 @@
 	</head>
 	<body>
 		<script>
-			console.log(
-				'1. Вивести на сторінку в один рядок через кому числа від 10 до 20.',
-			);
+			console.log('1. Вивести на сторінку в один рядок через кому числа від 10 до 20.');
 			let result = [];
 			for (let i = 10; i <= 20; i++) {
 				result.push(i);
@@ -38,11 +36,9 @@
 			for (let i = 15; i <= 35; i++) {
 				multiplying *= i;
 			}
-			console.log(multiplying);
+			console.log(BigInt(multiplying));
 
-			console.log(
-				'\n6. Знайти середнє арифметичне всіх цілих чисел від 1 до 500.',
-			);
+			console.log('\n6. Знайти середнє арифметичне всіх цілих чисел від 1 до 500.');
 			let resultAverage = 0;
 			let iterator;
 			for (iterator = 1; iterator <= 500; iterator++) {
@@ -51,9 +47,7 @@
 			resultAverage /= iterator - 1;
 			console.log(resultAverage);
 
-			console.log(
-				'\n7. Вивести суму лише парних чисел в діапазоні від 30 до 80',
-			);
+			console.log('\n7. Вивести суму лише парних чисел в діапазоні від 30 до 80');
 			let pairNumsSum = 0;
 			for (let i = 30; i <= 80; i++) {
 				if (i % 2 === 0) {
@@ -71,9 +65,7 @@
 			}
 			console.log(resultMultOf_3.toString());
 
-			console.log(
-				'\n9. Дано натуральне число. Знайти та вивести на сторінку всі його дільники.',
-			);
+			console.log('\n9. Дано натуральне число. Знайти та вивести на сторінку всі його дільники.');
 			const num = 10;
 			let resultNumDivisors = [];
 			for (let i = num; i > 0; i--) {
