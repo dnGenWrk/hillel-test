@@ -19,15 +19,14 @@
 				messagesStore.sorryMessage = 'Шкода, що Ви не захотіли ввести свій(ю)';
 			}
 			if (userBirth) {
-				messagesStore.textAlert = `Ваш вik = ${2023 - userBirth}`;
+				const currentYear = new Date().getFullYear();
+				messagesStore.textAlert = `Ваш вik = ${currentYear - userBirth}`;
 			} else {
 				messagesStore.sorryMessage += '\nВik';
 			}
 
 			if (city) {
-				city.toLowerCase() === 'kиїв' ||
-				city.toLowerCase() === 'вашингтон' ||
-				city.toLowerCase() === 'лондон'
+				city.toLowerCase() === 'kиїв' || city.toLowerCase() === 'вашингтон' || city.toLowerCase() === 'лондон'
 					? (messagesStore.textAlert += `\nТи живеш у столиці ${city}`)
 					: (messagesStore.textAlert += `\nTи живеш у місті ${city}`);
 			} else {
