@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ДЗ 7. Рішення квадратного рівняння</title>
+	</head>
+	<body>
+		<script>
+			const getPromptValues = function () {
+				let templatePromptMessage = 'Будемо знаходить рішення квадратного рівняння виду: ax^2 + bx + c = 0 \nВведіть a';
+				let nums = ['a', 'b', 'c'];
+				let resultsArr = [];
+				let checkPass = false;
+				for (let i = 0; i <= 2; ) {
+					while (isNaN(resultsArr[i]) || !resultsArr[i] || resultsArr[i].toString().trim().length < 1) {
+						if (resultsArr[i] === null) {
+							alert('Жаль. Сподіваюсь ще побачитись');
+							return false;
+						}
+						resultsArr[i] = prompt(`${templatePromptMessage}`, '');
+						if (i === 0) {
+							templatePromptMessage = 'Введіть a';
+						}
+					}
+
+					resultsArr[i] = parseFloat(resultsArr[i]);
+					i++;
+					i === 1 ? (templatePromptMessage = `a = ${resultsArr[i - 1]} \nВведіть b`) : '';
+					i === 2 ? (templatePromptMessage = `a = ${resultsArr[i - 2]}, b = ${resultsArr[i - 1]} \nВведить c`) : '';
+				}
+				return resultsArr;
+			};
+			const discSqrt = function (a, b, c) {
+				const D = (b ** 2) - (4 * a * c);
+				let x1, x2;
+				if (D < 0) {
+					alert('D < 0. Рівняння не має рішень');
+				}
+				if (D === 0) {
+					x1 = ((-b + Math.sqrt(D)) / 2) * a;
+					alert(`D = 0. Єдиний корень рівняння: ${x1}`);
+				}
+				if (D > 0) {
+					x1 = ((-b + Math.sqrt(D)) / 2) * a;
+					x2 = ((-b - Math.sqrt(D)) / 2) * a;
+					alert(`D > 0. Корені рівняння: ${x1}, ${x2}`);
+				}
+			};
+			let arrResults = getPromptValues();
+			if (arrResults) {
+				let [numa, numb, numc] = arrResults;
+				if (numa === 0) {
+					alert('a = 0. Рівняння не має рішень');
+				} else {
+					discSqrt(numa, numb, numc);
+				}
+			}
+		</script>
+	</body>
+</html>
