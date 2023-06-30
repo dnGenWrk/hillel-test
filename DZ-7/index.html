@@ -9,9 +9,7 @@
 		<script>
 			const getPromptValues = function () {
 				let templatePromptMessage = 'Будемо знаходить рішення квадратного рівняння виду: ax^2 + bx + c = 0 \nВведіть a';
-				let nums = ['a', 'b', 'c'];
 				let resultsArr = [];
-				let checkPass = false;
 				for (let i = 0; i <= 2; ) {
 					while (isNaN(resultsArr[i]) || !resultsArr[i] || resultsArr[i].toString().trim().length < 1) {
 						if (resultsArr[i] === null) {
@@ -47,9 +45,9 @@
 					alert(`D > 0. Корені рівняння: ${x1}, ${x2}`);
 				}
 			};
-			let arrResults = getPromptValues();
+			const arrResults = getPromptValues();
 			if (arrResults) {
-				let [numa, numb, numc] = arrResults;
+				const [numa, numb, numc] = arrResults;
 				if (numa === 0) {
 					alert('a = 0. Рівняння не має рішень');
 				} else {
