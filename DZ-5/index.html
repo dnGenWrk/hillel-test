@@ -32,11 +32,11 @@
 			console.log(sum);
 
 			console.log('\n5. Знайти добуток усіх цілих чисел від 15 до 35.');
-			let multiplying = 1;
-			for (let i = 15; i <= 35; i++) {
+			let multiplying = 1n;
+			for (let i = 15n; i <= 35; i++) {
 				multiplying *= i;
 			}
-			console.log(BigInt(multiplying));
+			console.log(multiplying);
 
 			console.log('\n6. Знайти середнє арифметичне всіх цілих чисел від 1 до 500.');
 			let resultAverage = 0;
