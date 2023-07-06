@@ -36,17 +36,16 @@
 				return null;
 			}
 		}
-		const D = (b ** 2) - (4 * a * c);
-		const sqrtD = Math.sqrt(D);
-		const result = {};
-		if (D < 0) {
+		const result = {
+			D: (b ** 2) - (4 * a * c),
+		};
+		const sqrtD = Math.sqrt(result.D);
+		if (result.D < 0) {
 			result.x1 = null;
 			result.x2 = null;
-			result.D = D;
 		} else {
 			result.x1 = ((-b + sqrtD) / 2) * a;
 			result.x2 = ((-b - sqrtD) / 2) * a;
-			result.D = D;
 		}
 		return result;
 	};
