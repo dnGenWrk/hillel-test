@@ -1,77 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang='en'>
 <head>
-	<meta charset="UTF-8"/>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta charset='UTF-8'>
+	<meta content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' name='viewport'>
+	<meta content='ie=edge' http-equiv='X-UA-Compatible'>
 	<title>ДЗ 8. Одна функция - одно действие. Callback функция</title>
 </head>
 <body>
 <script>
-	const getPromptValue = function (message, additionalMessage = false) {
-		let value;
-		if (additionalMessage) {
-			value = prompt(additionalMessage + message, '');
-		} else {
-			value = prompt(message, '');
-		}
-		
-		if (value !== null) {
-			value = parseFloat(value);
-			if (isNaN(value)) {
-				return getPromptValue(message);
-			}
-		}
-		
-		return value;
-	}
-	
-	const ifInvalidNuma = function () {
-		return alert('a = 0. Рівняння не має рішень');
-	}
-	
-	const discSqrt = function (a, b, c, callBackFunc) {
-		if (typeof callBackFunc === 'function') {
-			if (a === 0) {
-				callBackFunc();
-				return null;
-			}
-		}
-		const result = {
-			D: (b ** 2) - (4 * a * c),
-		};
-		const sqrtD = Math.sqrt(result.D);
-		if (result.D < 0) {
-			result.x1 = null;
-			result.x2 = null;
-		} else {
-			result.x1 = ((-b + sqrtD) / 2) * a;
-			result.x2 = ((-b - sqrtD) / 2) * a;
-		}
-		return result;
-	};
-	
-	const num_a = getPromptValue('\nВведіть a', 'Будемо знаходить рішення квадратного рівняння виду: ax^2 + bx + c = 0');
-	const num_b = num_a !== null ? getPromptValue(`a=${num_a} \nВведіть b`) : '';
-	const num_c = (num_b !== null && num_a !== null) ? getPromptValue(`a=${num_a}, b=${num_b} Введить с`) : '';
-	
-	if (num_a !== null && num_b !== null && num_c !== null) {
-		const result = discSqrt(num_a, num_b, num_c, ifInvalidNuma);
-		if (result !== null) {
-			if (result.D < 0) {
-				alert('D < 0. Рівняння не має рішень');
-			} else if (result.D === 0) {
-				alert(`D = 0. Єдиний корень рівняння: ${result.x1}`);
+	(function () {
+		//body
+		const getPromptValue = function (message, additionalMessage = false) {
+			let value;
+			if (additionalMessage) {
+				value = prompt(additionalMessage + message, '');
 			} else {
-				alert(`D > 0. Корені рівняння: ${result.x1}, ${result.x2}`);
+				value = prompt(message, '');
+			}
+			
+			if (value !== null) {
+				value = parseFloat(value);
+				if (isNaN(value)) {
+					return getPromptValue(message);
+				}
+			}
+			
+			return value;
+		}
+		
+		const ifInvalidNuma = function () {
+			return alert('a = 0. Рівняння не має рішень');
+		}
+		
+		const discSqrt = function (a, b, c, callBackFunc) {
+			if (typeof callBackFunc === 'function') {
+				if (a === 0) {
+					callBackFunc();
+					return null;
+				}
+			}
+			const result = {
+				D: (b ** 2) - (4 * a * c),
+			};
+			const sqrtD = Math.sqrt(result.D);
+			if (result.D < 0) {
+				result.x1 = null;
+				result.x2 = null;
+			} else {
+				result.x1 = ((-b + sqrtD) / 2) * a;
+				result.x2 = ((-b - sqrtD) / 2) * a;
+			}
+			return result;
+		};
+		
+		const showResultDiscSqrt = function (data) {
+			if (data !== null) {
+				if (data.D < 0) {
+					alert('D < 0. Рівняння не має рішень');
+				} else if (data.D === 0) {
+					alert(`D = 0. Єдиний корень рівняння: ${data.x1}`);
+				} else {
+					alert(`D > 0. Корені рівняння: ${data.x1}, ${data.x2}`);
+				}
 			}
 		}
 		
-	} else {
-		alert("Жаль. Сподіваюсь ще побачитись\". На цьому програма завершує свою роботу.");
-	}
-
-
+		const num_a = getPromptValue('\nВведіть a', 'Будемо знаходить рішення квадратного рівняння виду: ax^2 + bx + c = 0');
+		const num_b = num_a !== null ? getPromptValue(`a=${num_a} \nВведіть b`) : '';
+		const num_c = (num_b !== null && num_a !== null) ? getPromptValue(`a=${num_a}, b=${num_b} Введить с`) : '';
+		
+		if (num_a !== null && num_b !== null && num_c !== null) {
+			const result = discSqrt(num_a, num_b, num_c, ifInvalidNuma);
+			showResultDiscSqrt(result);
+			
+		} else {
+			alert("Жаль. Сподіваюсь ще побачитись\". На цьому програма завершує свою роботу.");
+		}
+	}());
 </script>
-
 </body>
 </html>
