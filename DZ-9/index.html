@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<meta content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' name='viewport'>
+	<meta content='ie=edge' http-equiv='X-UA-Compatible'>
+	<title>ДЗ 9. Пошук у масиві</title>
+</head>
+<body>
+<script>
+	const showResult = (message, result = '') => console.log(`${message} ${result}`);
+	
+	const zeroArrayItems = function (array, holdItem) {
+		for (let i = 0; i < array.length; i++) {
+			if (i !== holdItem) {
+				array[i] = 0;
+			}
+		}
+	}
+	
+	const arraySearching = function (array) {
+		const result = {
+			positiveSum: 0,
+			positiveNumCount: 0,
+			negativeNumCount: 0,
+			minElement: {
+				index: 0,
+				value: Number.MAX_SAFE_INTEGER,
+			},
+			maxElement: {
+				index: 0,
+				value: Number.MIN_SAFE_INTEGER,
+			},
+			positiveEvenCount: 0,
+			positiveEvenSum: 0,
+			positiveOddCount: 0,
+			positiveOddSum: 0,
+			positiveMultiple: 1n,
+		};
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] > 0) {
+				result.positiveSum += array[i];
+				result.positiveNumCount += 1;
+				result.positiveMultiple *= BigInt(array[i]);
+				
+				if (array[i] % 2 === 0) {
+					result.positiveEvenCount += 1;
+					result.positiveEvenSum += array[i];
+				} else {
+					result.positiveOddCount += 1;
+					result.positiveOddSum += array[i];
+				}
+			} else {
+				result.negativeNumCount += 1;
+			}
+			
+			if (array[i] < result.minElement.value) {
+				result.minElement.value = array[i];
+				result.minElement.index = i;
+			}
+			
+			if (array[i] > result.maxElement.value) {
+				result.maxElement.value = array[i];
+				result.maxElement.index = i;
+			}
+		}
+		return result;
+	}
+	
+	const targetArray = [16, -37, 54, -4, 72, -56, 47, 4, -16, 25, -37, 46, 4, -51, 27, -63, 4, -54, 76, -4, 12, -35, 4, 47];
+	const result = arraySearching(targetArray);
+	console.log(`Дан масив = [${targetArray}]`);
+	showResult(`1. кількість позитивних елементів = ${result.positiveNumCount} сумa = ${result.positiveSum}`);
+	showResult(`2. мінімальний елемент = ${result.minElement.value} порядковий номер ${result.minElement.index}`);
+	showResult(`3. максимальний = ${result.maxElement.value} порядковий номер ${result.maxElement.index}`);
+	showResult('4. кількість негативних елементів =', result.negativeNumCount);
+	showResult('5. кількість непарних позитивних елементів =', result.positiveOddCount);
+	showResult('6. кількість парних позитивних елементів=', result.positiveEvenCount);
+	showResult('7. суму парних позитивних елементів=', result.positiveEvenSum);
+	showResult('8. суму непарних позитивних елементів=', result.positiveOddSum);
+	showResult('9. добуток позитивних елементів=', result.positiveMultiple);
+	zeroArrayItems(targetArray, result.maxElement.index);
+	showResult(`10. найбільший серед елементів масиву = ${result.maxElement.value}, \nостальні обнулити.`, `[${targetArray}]`)
+</script>
+</body>
+</html>
