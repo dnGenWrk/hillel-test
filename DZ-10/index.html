@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 10. Масив</title>
+  </head>
+  <body>
+    <script>
+      const getArray = function () {
+        let strRead = prompt("Insert array please. Divider is comma character");
+        if (strRead === null) {
+          return;
+        }
+        if (strRead.lastIndexOf(",") === strRead.length - 1) {
+          strRead = strRead.slice(0, strRead.length - 1);
+        }
+        return strRead.split(",");
+      };
+
+      function isNum(num) {
+        if (Number.isInteger(+num)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      function sortingArrays(array) {
+        const userArrayNums = array.filter((elem) => isNum(elem)).sort((a, b) => a - b);
+        const userArrayStrings = array.filter((elem) => !isNum(elem)).sort();
+        const sortedArray = userArrayNums.concat(userArrayStrings);
+        return sortedArray;
+      }
+
+      const userArray = getArray();
+      if (userArray) {
+        console.log(`Array = [${userArray}]`);
+        const result = sortingArrays(userArray);
+        console.log(`Sorted Array = [${result}]`);
+        result.splice(2, 3);
+        console.log(`Deleted 2,3,4 indexed elements, Array = [${result}]`);
+      }
+    </script>
+  </body>
+</html>
