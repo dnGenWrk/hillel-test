@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 14. Реалізуйте функцію generateKey</title>
+  </head>
+  <body>
+    <script>
+      const generateKey = function (size, strFrom) {
+        if (!size || !strFrom) {
+          return null;
+        }
+        let result = "";
+        while (size > 0) {
+          result += strFrom[Math.floor(Math.random() * strFrom.length)];
+          size--;
+        }
+        return result;
+      };
+
+      const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+      const key = generateKey(16, characters);
+      console.log(key);
+    </script>
+  </body>
+</html>
