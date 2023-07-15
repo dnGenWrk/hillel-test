@@ -64,7 +64,7 @@
         },
       ];
 
-      const result = users.reduce((accumulator, element, index) => {
+      const result = users.reduce((accumulator, element) => {
         let currentValue = Number(element.balance.replaceAll("$", "").replaceAll(",", ""));
 
         if (currentValue > 2000) {
