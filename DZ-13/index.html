@@ -64,7 +64,7 @@
         },
       ];
 
-      const result = users.reduce((accumulator, element) => {
+      let result = users.reduce((accumulator, element) => {
         const currentValue = Number(element.balance.replaceAll("$", "").replaceAll(",", ""));
 
         if (currentValue > 2000) {
@@ -74,8 +74,9 @@
         return (accumulator += currentValue);
       }, 0);
 
+      result = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(result);
       console.log("-------------------");
-      console.log("Total: " + "$" + result.toLocaleString("en-US"));
+      console.log("Total: " + result);
     </script>
   </body>
 </html>
