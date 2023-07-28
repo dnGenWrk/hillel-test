@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 18. Визначити дати в тексті</title>
+  </head>
+  <body>
+    <script>
+      const findDates = function (text) {
+        let dateList = text.matchAll(/(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d)/gm);
+        let result = [];
+        for (let item of dateList) {
+          const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          item.groups.monthName = monthNames[+item.groups.month - 1];
+          +item.groups.month <= 12 ? result.push(item.groups) : "";
+        }
+        return result;
+      };
+
+      const testStr1 = "The dates between 1976-03-12, and 1983-10-14, the code was 2004-67-12 and possible invalid date 8765-11-34";
+      const testStr2 = "Якась строка без дат";
+      const test1 = findDates(testStr1);
+      const test2 = findDates(testStr2);
+      console.log(test1);
+      console.log(test2);
+    </script>
+  </body>
+</html>
