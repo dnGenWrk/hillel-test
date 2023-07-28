@@ -8,8 +8,8 @@
   <body>
     <script>
       const checkTel = function (tel) {
-        let result = tel.match(/(\(?\+?380\)?)\s?([\s\(]?\d\d\)?[\s-]?\d\d\d[\s-]?\d\d[\s-]?\d\d)/);
-        result !== null ? (result = "0" + result[2].match(/\d/g).join("")) : "";
+        let result = tel.match(/(\(?\+?38)(0\s?\)?\(?\s?\d{2}\s?\)?\-?\s?\d{3}\s?\-?\d{2}\s?\-?\d{2})/);
+        result !== null ? (result = result[2].match(/\d/g).join("")) : "";
         return result;
       };
 
