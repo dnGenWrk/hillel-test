@@ -8,7 +8,7 @@
   <body>
     <script>
       const findDates = function (text) {
-        let dateList = text.matchAll(/(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d)/gm);
+        let dateList = text.matchAll(/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/gm);
         let result = [];
         for (let item of dateList) {
           const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
