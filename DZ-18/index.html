@@ -13,7 +13,9 @@
         for (let item of dateList) {
           const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
           item.groups.monthName = monthNames[+item.groups.month - 1];
-          +item.groups.month <= 12 ? result.push(item.groups) : "";
+          if (+item.groups.month <= 12) {
+            result.push(item.groups);
+          }
         }
         return result;
       };
