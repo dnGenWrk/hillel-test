@@ -9,7 +9,7 @@
     <script>
       const checkTel = function (tel) {
         let result = tel.match(/(\(?\+?380\)?)\s?([\s\(]?\d\d\)?[\s-]?\d\d\d[\s-]?\d\d[\s-]?\d\d)/);
-        result !== null ? (result = result[2].match(/\d/g).join("")) : (result = null);
+        result !== null ? (result = result[2].match(/\d/g).join("")) : "";
         return result;
       };
 
