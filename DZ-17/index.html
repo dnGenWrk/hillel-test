@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Спростити номер телефону</title>
+  </head>
+  <body>
+    <script>
+      const checkTel = function (tel) {
+        let result = tel.match(/(\(?\+?380\)?)\s?([\s\(]?\d\d\)?[\s-]?\d\d\d[\s-]?\d\d[\s-]?\d\d)/);
+        result !== null ? (result = result[2].match(/\d/g).join("")) : (result = null);
+        return result;
+      };
+
+      const testTelNums = [
+        "380 (44) 364 83 65",
+        "+380 44 364 83 65",
+        "(+380) 44-364-83-65",
+        "+380443648365",
+        "+38 (044) 364 83 65",
+        "asfsasfaf asfsa",
+        "(+280) 44-364-83-65",
+        "(+380) 443-364-834-65",
+      ];
+      testTelNums.forEach((elem, i) => console.log(`Test ${i + 1}) Tel: ${elem} | result = ${checkTel(elem)}`));
+    </script>
+  </body>
+</html>
