@@ -8,7 +8,7 @@
   <body>
     <script>
       const checkTel = function (tel) {
-        let result = tel.match(/(\(?\+?38)(0\s?\)?\(?\s?\d{2}\s?\)?\-?\s?\d{3}\s?\-?\d{2}\s?\-?\d{2})/);
+        let result = tel.match(/([\(]?[\(\+]?38)(0[ \)]?[ \(]?\d{2}[\) -]? ?\d{3}[ -]?\d{2}[ -]?\d{2})/);
         if (result !== null) {
           result = result[2].match(/\d/g).join("");
         }
