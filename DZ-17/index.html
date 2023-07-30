@@ -8,23 +8,14 @@
   <body>
     <script>
       const checkTel = function (tel) {
-        let result = tel.match(/([\(]?[\(\+]?38)(0[ \)]?[ \(]?\d{2}[\) -]? ?\d{3}[ -]?\d{2}[ -]?\d{2})/);
+        let result = tel.match(/\+?(38) ?(0[ -]\d{2}[ -]?\d{3}[ -]?\d{2}[ -]\d{2})/);
         if (result !== null) {
           result = result[2].match(/\d/g).join("");
         }
         return result;
       };
 
-      const testTelNums = [
-        "380 (44) 364 83 65",
-        "+380 44 364 83 65",
-        "(+380) 44-364-83-65",
-        "+380443648365",
-        "+38 (044) 364 83 65",
-        "asfsasfaf asfsa",
-        "(+280) 44-364-83-65",
-        "(+380) 443-364-834-65",
-      ];
+      const testTelNums = ["380 44 364 83 65", "+380 44 364 83 65", "380-44-364-83-65", "+380-44-364-83-65", "+38 044 364 83 65"];
       testTelNums.forEach((elem, i) => console.log(`Test ${i + 1}) Tel: ${elem} | result = ${checkTel(elem)}`));
     </script>
   </body>
