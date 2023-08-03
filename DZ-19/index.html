@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 19. Створюємо сутності</title>
+  </head>
+  <body>
+    <script>
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+
+        IsAdult() {
+          return this.age >= 18;
+        }
+
+        GetInfo() {
+          return `${this.name}, age: ${this.age}`;
+        }
+
+        static IsHuman(person) {
+          return person instanceof Person;
+        }
+      }
+
+      class Car {
+        constructor(brand, model, year, number) {
+          this.brand = brand;
+          this.model = model;
+          this.year = year;
+          this.number = number;
+        }
+
+        SetOvner(person) {
+          if (Person.IsHuman(person) && person.IsAdult()) {
+            return (this.ovner = person);
+          } else {
+            console.log(`Failed, ${person.name} not human or under 18 years old`);
+            return;
+          }
+        }
+
+        LogCarInfo() {
+          let carOvner = "";
+          this.ovner && (carOvner = `, Ovner = ${this.ovner.GetInfo()}`);
+          return console.log(`Car: ${this.brand}, model: ${this.model}, year: ${this.year}, number: ${this.number}${carOvner} `);
+        }
+      }
+
+      const kozlevich = new Person("Adam", 50);
+      const alice = new Person("Alice", 15);
+      const tuzik = { name: "Tuzik", age: 20 };
+
+      const car1 = new Car("Lorraine-Dietrich", "Antilopa-Gnu", 1908, "ЖО-100-500");
+      const car2 = new Car("Honda", "Civic", 2003, "G-100500");
+      const car3 = new Car("Mitsubishi", "Lancer 1", 1973, "2w232");
+      const cars = [car1, car2, car3];
+
+      car1.SetOvner(kozlevich);
+      car2.SetOvner(tuzik);
+      car2.SetOvner(alice);
+
+      cars.forEach((e) => e.LogCarInfo());
+    </script>
+  </body>
+</html>
