@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 20. Багатоквартирний будинок</title>
+  </head>
+  <body>
+    <script>
+      "use strict";
+
+      class Person {
+        constructor(name, sex) {
+          this.name = name;
+          this.sex = sex;
+        }
+      }
+
+      class Apartment {
+        residentsList = [];
+        addResident(resident) {
+          resident instanceof Person && this.residentsList.push(resident);
+        }
+      }
+
+      class ApartmentHouse {
+        constructor(maxCounts) {
+          this.maxApartmentsCount = maxCounts;
+        }
+        apartmentsList = [];
+        addApartment(apartment) {
+          if (apartment instanceof Apartment && this.apartmentsList.length < this.maxApartmentsCount) {
+            this.apartmentsList.push(apartment);
+          } else {
+            console.log(`Failed to add new apartment: maximum counts is ${this.maxApartmentsCount}, limit exceeded`);
+          }
+        }
+      }
+
+      const resident1 = new Person("Vasua", "male");
+      const resident2 = new Person("Dasha", "female");
+
+      const apartment1 = new Apartment();
+      const apartment2 = new Apartment();
+      const apartment3 = new Apartment();
+
+      apartment1.addResident(resident1);
+      apartment2.addResident(resident2);
+
+      const house = new ApartmentHouse(2);
+      house.addApartment(apartment1);
+      house.addApartment(apartment2);
+      house.addApartment(apartment3);
+
+      console.log(JSON.stringify(house, null, 2));
+    </script>
+  </body>
+</html>
