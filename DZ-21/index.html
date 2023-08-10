@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 21. Гамбургери<</title>
+  </head>
+  <body>
+    <script>
+      class HamburgerFilling {
+        constructor(price, calories) {
+          this.price = price;
+          this.calories = calories;
+        }
+      }
+
+      class HamburgerSize extends HamburgerFilling {}
+      class HamburgerStuffing extends HamburgerFilling {}
+      class HamburgerToppings extends HamburgerFilling {}
+
+      class Hamburger {
+        constructor(SIZE = Hamburger.SIZE_SMALL, STUFFING = Hamburger.STUFFING_POTATO, ...toppings) {
+          if (SIZE instanceof HamburgerSize) {
+            this.SIZE = SIZE;
+          }
+
+          if (STUFFING instanceof HamburgerStuffing) {
+            this.STUFFING = STUFFING;
+          }
+
+          this.toppings = toppings;
+        }
+
+        static SIZE_SMALL = new HamburgerSize(50, 20);
+        static SIZE_BIG = new HamburgerSize(100, 40);
+
+        static STUFFING_CHEESE = new HamburgerStuffing(10, 20);
+        static STUFFING_SALAD = new HamburgerStuffing(20, 5);
+        static STUFFING_POTATO = new HamburgerStuffing(15, 10);
+
+        static TOPPING_SAUCE = new HamburgerToppings(15, 0);
+        static TOPPING_MAYO = new HamburgerToppings(20, 5);
+
+        addTopping(topping) {
+          topping instanceof HamburgerToppings && this.toppings.push(topping);
+        }
+
+        calculate() {
+          let toppingsCalories = this.toppings.reduce((totalToppingsCalories, currentTopping) => {
+            return (totalToppingsCalories += currentTopping.calories);
+          }, 0);
+          return toppingsCalories + this.SIZE.calories + this.STUFFING.calories;
+        }
+
+        calculatePrice() {
+          let toppingsPrice = this.toppings.reduce((totalToppingsPrice, currentTopping) => {
+            return (totalToppingsPrice += currentTopping.price);
+          }, 0);
+          return toppingsPrice + this.SIZE.price + this.STUFFING.price;
+        }
+      }
+
+      const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
+      hamburger.addTopping(Hamburger.TOPPING_MAYO);
+      console.log("Calories: " + hamburger.calculate());
+      console.log("Price: " + hamburger.calculatePrice());
+      hamburger.addTopping(Hamburger.TOPPING_SAUCE);
+      console.log("Price with sauce: " + hamburger.calculatePrice());
+    </script>
+  </body>
+</html>
