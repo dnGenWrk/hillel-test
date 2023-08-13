@@ -62,7 +62,7 @@
           if (Student.isStudent(student)) {
             let countOfAttendance = 0;
             student.attendance.filter((attendances) => {
-              attendances && ++countOfAttendance;
+              attendances && countOfAttendance++;
             });
             return countOfAttendance / student.attendance.length;
           } else {
@@ -133,6 +133,7 @@
 
       const customStudent1 = new Student("BATMAN", "MIZRAHI", 1980);
       customStudent1
+        .present()
         .present()
         .present()
         .present()
