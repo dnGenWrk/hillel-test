@@ -62,7 +62,7 @@
           if (Student.isStudent(student)) {
             let countOfAttendance = 0;
             student.attendance.filter((attendances) => {
-              attendances && countOfAttendance++;
+              attendances && ++countOfAttendance;
             });
             return countOfAttendance / student.attendance.length;
           } else {
@@ -160,6 +160,10 @@
       customStudent1.setGrade(99).setGrade(98).setGrade(100).setGrade(99);
       console.log("TEST SUPER STUDENT MOLODEC");
       StudentReport.printToConsole(customStudent1);
+
+      console.log(students);
+      console.log(students[0].attendance);
+      console.log(StudentProgress.averageAttendance(students[0]));
     </script>
   </body>
 </html>
