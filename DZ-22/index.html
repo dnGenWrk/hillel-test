@@ -61,8 +61,8 @@
         static averageAttendance(student) {
           if (Student.isStudent(student)) {
             let countOfAttendance = 0;
-            student.attendance.filter((element) => {
-              element && countOfAttendance++;
+            student.attendance.filter((attendances) => {
+              attendances && countOfAttendance++;
             });
             return countOfAttendance / student.attendance.length;
           } else {
