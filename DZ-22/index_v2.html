@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 22. Студент (improvements and optimization.)</title>
+  </head>
+  <body>
+    <script>
+      "use strict";
+      class Student {
+        grades = [];
+        attendance = new Array(25);
+        currentAttendancePosition = 0;
+        avgAttendance = 0;
+        avgGrade = 0;
+
+        constructor(fname, lname, birth) {
+          this.fname = fname;
+          this.lname = lname;
+          this.birth = birth;
+        }
+
+        getAge() {
+          return new Date().getFullYear() - this.birth;
+        }
+
+        present() {
+          this.attendance[this.currentAttendancePosition] = true;
+          ++this.currentAttendancePosition;
+          this.avgAttendance = StudentProgress.averageAttendance(this);
+          return this;
+        }
+
+        absent() {
+          this.attendance[this.currentAttendancePosition] = false;
+          ++this.currentAttendancePosition;
+          this.avgAttendance = StudentProgress.averageAttendance(this);
+          return this;
+        }
+
+        setGrade(grade) {
+          this.grades.push(grade);
+          this.avgGrade = StudentProgress.averageGrade(this);
+          return this;
+        }
+
+        summary() {
+          return {
+            averageAttendance: this.avgAttendance,
+            averageGrade: this.avgGrade,
+          };
+        }
+
+        static isStudent(person) {
+          return person instanceof Student;
+        }
+      }
+
+      class StudentProgress {
+        static averageGrade(student) {
+          if (Student.isStudent(student)) {
+            const countOfGrades = student.grades.length;
+            const gradesSum = student.grades.reduce((sum, current) => {
+              return (sum += current);
+            }, 0);
+            return Math.floor(gradesSum / countOfGrades);
+          } else {
+            return null;
+          }
+        }
+
+        static averageAttendance(student) {
+          if (Student.isStudent(student)) {
+            let countOfAttendance = 0;
+            student.attendance.filter((attendances) => {
+              attendances && countOfAttendance++;
+            });
+            return countOfAttendance / student.attendance.length;
+          } else {
+            return null;
+          }
+        }
+      }
+
+      class StudentReport {
+        static printToConsole(student) {
+          if (Student.isStudent(student)) {
+            const summary = student.summary();
+            let result = "Редиска!";
+            if (summary.averageGrade > 90 && summary.averageAttendance > 0.9) {
+              result = "Молодець!";
+            } else if (summary.averageGrade > 90 || summary.averageAttendance > 0.9) {
+              result = "Добре, але можна краще";
+            }
+            console.log(
+              `Student: ${student.fname} ${student.lname} | student age: ${student.getAge()} | student average grade: ${
+                summary.averageGrade
+              } | student average attendance: ${summary.averageAttendance} | student summary = ${result}`
+            );
+            console.log("____________________________________________________________________________________________________________________");
+          } else {
+            console.log("Error, student is not valid");
+          }
+        }
+      }
+
+      const studentDataFiller = function (student, countAbsents, gradesCount) {
+        const iterationsCount = student.attendance.length;
+        let i;
+        for (i = 0; i < iterationsCount; i++) {
+          if (i < countAbsents) {
+            student.absent();
+          } else {
+            student.present();
+          }
+        }
+        while (gradesCount > 0) {
+          student.setGrade(Math.floor(Math.random() * 100));
+          gradesCount--;
+        }
+      };
+
+      const students = [
+        new Student("Vasili", "Kolobkov", 1982),
+        new Student("Oleg", "Petrov", 1980),
+        new Student("Marfa", "Ivanova", 2000),
+        new Student("Galina", "Sidorova", 2002),
+      ];
+      console.log("\nTEST STUDENTS WITH GENERATED DATA TEST");
+      students.forEach((student) => {
+        const absentsCount = Math.floor(Math.random() * 25);
+        const gradesCount = Math.floor(Math.random() * 15 + 1);
+        studentDataFiller(student, absentsCount, gradesCount);
+        StudentReport.printToConsole(student);
+      });
+
+      const customStudent1 = new Student("BATMAN", "MIZRAHI", 1980);
+      customStudent1
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .present()
+        .absent();
+      customStudent1.setGrade(99).setGrade(98).setGrade(100).setGrade(99);
+      console.log("TEST SUPER STUDENT MOLODEC");
+      StudentReport.printToConsole(customStudent1);
+    </script>
+  </body>
+</html>
