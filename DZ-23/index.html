@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 23. Виведення зображень</title>
+  </head>
+  <body>
+    <main>
+      <style>
+        h1 {
+          text-align: center;
+        }
+        .img-container {
+          max-width: 460px;
+          margin: 0 auto;
+        }
+        img {
+          display: block;
+          width: 100%;
+        }
+      </style>
+
+      <div class="img-container">
+        <h1>Cat of the day</h1>
+      </div>
+    </main>
+    <script>
+      "use strict";
+
+      const IMAGES_PATH = "./images/";
+      const imagesCount = 9;
+      const imgContainer = document.querySelector(".img-container");
+
+      const getRandomImage = function (imagesDir, countOfImages, ext = ".jpg") {
+        const image = document.createElement("img");
+        image.src = imagesDir + Math.floor(Math.random() * countOfImages + 1) + ext;
+        image.alt = "A random image with a cat";
+        return image;
+      };
+
+      const renderImage = function (targetElement, img) {
+        targetElement.appendChild(img);
+      };
+
+      const img = getRandomImage(IMAGES_PATH, imagesCount);
+      renderImage(imgContainer, img);
+    </script>
+  </body>
+</html>
