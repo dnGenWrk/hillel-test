@@ -41,7 +41,7 @@
       const getRandomImage = function (imagesPaths) {
         const randomItem = Math.floor(Math.random() * (imagesPaths.length - 1));
         const src = imagesPaths[randomItem];
-        return `<img src=${src} alt='A random image with a cat' />`;
+        return `<img src='${src}' alt='A random image with a cat' />`;
       };
 
       const renderImage = function (targetElement, img) {
