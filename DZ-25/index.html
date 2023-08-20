@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" as="image" href="./img/1.jpg" />
+    <link rel="preload" as="image" href="./img/2.jpg" />
+    <link rel="preload" as="image" href="./img/3.jpg" />
+    <link rel="preload" as="image" href="./img/4.jpg" />
+    <link rel="preload" as="image" href="./img/5.jpg" />
+    <title>ДЗ 25. Слайдер базовий</title>
+    <style>
+      .content-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .slider {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="content-wrapper">
+        <div class="slider" id="slider">
+          <button class="slider__ctaPrev">Prev</button>
+          <div class="slider__slide">
+            <img src="./img/1.jpg" alt="cat img" />
+          </div>
+          <button class="slider__ctaNext">Next</button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      "use strict";
+      const target = document.getElementById("slider");
+      const renderTarget = document.querySelector(".slider__slide");
+      const slides = [
+        "<img src='./img/1.jpg' alt = 'Cat image'/>",
+        "<img src='./img/2.jpg' alt = 'Cat image'/>",
+        "<img src='./img/3.jpg' alt = 'Cat image'/>",
+        "<img src='./img/4.jpg' alt = 'Cat image'/>",
+        "<img src='./img/5.jpg' alt = 'Cat image'/>",
+      ];
+
+      function Slider(targetEl, slides, renderTarget) {
+        this.targetEl = targetEl;
+        this.renderTarget = renderTarget;
+        this.slides = slides;
+        this.sliderSize = slides.length;
+        this.currentSlide = 0;
+        this.buttonNext = document.querySelector(".slider__ctaNext");
+        this.buttonPrev = document.querySelector(".slider__ctaPrev");
+
+        this.slideRender = function () {
+          this.renderTarget.innerHTML = this.slides[this.currentSlide];
+        };
+
+        this.slideNext = function () {
+          if (this.currentSlide < this.sliderSize - 1) {
+            if (this.currentSlide === 0) {
+              this.buttonPrev.style.visibility = "visible";
+            }
+
+            ++this.currentSlide;
+            this.slideRender();
+
+            if (this.currentSlide === this.sliderSize - 1) {
+              this.buttonNext.style.visibility = "hidden";
+            }
+          }
+        };
+
+        this.slidePrev = function () {
+          if (this.currentSlide === 0) {
+            this.buttonPrev.style.visibility = "hidden";
+          }
+
+          if (this.currentSlide > 0) {
+            if (this.currentSlide === this.sliderSize - 1) {
+              this.buttonNext.style.visibility = "visible";
+            }
+
+            --this.currentSlide;
+            this.slideRender();
+          }
+        };
+      }
+
+      const slider = new Slider(target, slides, renderTarget);
+
+      const sliderClick = function (e) {
+        if (e.target.className === "slider__ctaNext") {
+          slider.slideNext();
+        }
+        if (e.target.className === "slider__ctaPrev") {
+          slider.slidePrev();
+        }
+      };
+
+      slider.targetEl.addEventListener("click", sliderClick);
+    </script>
+  </body>
+</html>

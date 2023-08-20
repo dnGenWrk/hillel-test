@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 24. div - привид</title>
+    <style>
+      #content-wrapper {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+      #text-field {
+        width: 79%;
+      }
+      #shadow-div {
+        width: 20%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="content-wrapper">
+        <textarea name="text-field" id="text-field" cols="30" rows="10"></textarea>
+      </div>
+    </main>
+    <script src="../lib/functionTag.js"></script>
+    <script>
+      "use strict";
+
+      const targetElement = document.getElementById("text-field");
+      const shadowDiv = tag("div", "Shadow div", { id: "shadow-div" });
+
+      targetElement.addEventListener("focus", function (e) {
+        targetElement.parentElement.prepend(shadowDiv);
+        console.log(e);
+      });
+
+      targetElement.addEventListener("blur", function (e) {
+        shadowDiv.remove();
+      });
+    </script>
+  </body>
+</html>
