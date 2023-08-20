@@ -30,7 +30,7 @@
     <main>
       <div class="content-wrapper">
         <div class="slider" id="slider">
-          <button class="slider__ctaPrev">Prev</button>
+          <button class="slider__ctaPrev" style="visibility: hidden">Prev</button>
           <div class="slider__slide">
             <img src="./img/1.jpg" alt="cat img" />
           </div>
@@ -80,10 +80,6 @@
         };
 
         this.slidePrev = function () {
-          if (this.currentSlide === 0) {
-            this.buttonPrev.style.visibility = "hidden";
-          }
-
           if (this.currentSlide > 0) {
             if (this.currentSlide === this.sliderSize - 1) {
               this.buttonNext.style.visibility = "visible";
@@ -91,6 +87,9 @@
 
             --this.currentSlide;
             this.slideRender();
+            if (this.currentSlide === 0) {
+              this.buttonPrev.style.visibility = "hidden";
+            }
           }
         };
       }
