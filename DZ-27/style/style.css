@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  width: auto;
+  padding: 0 12px;
+  justify-content: center;
+}
+.poll-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+@media screen and (min-width: 600px) {
+  .poll-wrapper {
+    flex-wrap: nowrap;
+  }
+}
+.poll-wrapper button {
+  background: none;
+  border: none;
+  transition: all 0.6s;
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+.poll-wrapper button:hover,
+.poll-wrapper button:focus {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.poll-wrapper [data-pool-name] {
+  padding: 20px 20px;
+}
+.poll-wrapper [data-pool-name] svg {
+  width: 64px;
+  margin-bottom: 12px;
+}
+.poll-wrapper [data-pool-name] svg,
+.counter {
+  pointer-events: none;
+}
+.counter {
+  text-align: center;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 26. Таблиця</title>
+    <style>
+      .container {
+        padding: 0 18px;
+        max-width: 650px;
+        margin: 0 auto;
+      }
+
+      table {
+        table-layout: fixed;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      table td {
+        text-align: center;
+        padding: 12px 0;
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <div id="test"></div>
+
+    <script src="../lib/functionTag.js"></script>
+    <script>
+      "use strict";
+      const createTable = function (size = 100, cols = 10) {
+        let table = tag("table");
+        let tbody = tag("tbody");
+        table.append(tbody);
+        let nums = 1;
+        let currCol = 1;
+        let lines = size % cols === 0 ? size / cols : size / cols + 1;
+
+        for (let i = 1; i <= lines; i++) {
+          let TR = tag("tr");
+          tbody.appendChild(TR);
+
+          for (let j = 1; j <= cols; j++) {
+            let TD = tag("td");
+            if (nums <= size) {
+              TD.innerHTML = nums++;
+            }
+
+            TR.appendChild(TD);
+          }
+        }
+        return table;
+      };
+
+      document.querySelector(".container").append(createTable());
+    </script>
+  </body>
+</html>
