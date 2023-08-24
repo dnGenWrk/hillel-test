@@ -17,7 +17,6 @@
 }
 .poll-wrapper button {
   background: none;
-  border: none;
   transition: all 0.6s;
   border: 1px solid black;
   border-radius: 12px;
