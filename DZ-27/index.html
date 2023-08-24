@@ -65,7 +65,6 @@
 
       function Vote(pollElement) {
         this.poll = pollElement;
-        this.pollVariants = document.querySelectorAll("[data-pool-name]");
 
         this.voting = function (e) {
           if (e.target.className === "poll-wrapper_button") {
