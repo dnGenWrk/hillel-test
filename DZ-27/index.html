@@ -68,7 +68,7 @@
 
         this.voting = function (e) {
           if (e.target.className === "poll-wrapper_button") {
-            let counterEl = e.target.lastElementChild;
+            const counterEl = e.target.lastElementChild;
             let counterVal = counterEl.dataset.counter;
             counterEl.dataset.counter = ++counterVal;
             counterEl.innerHTML = counterVal;
