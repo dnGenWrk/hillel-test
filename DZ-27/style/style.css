@@ -26,6 +26,7 @@
 .poll-wrapper button:focus {
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   cursor: pointer;
+  transform: translate(-6px, -6px);
 }
 
 .poll-wrapper [data-pool-name] {
