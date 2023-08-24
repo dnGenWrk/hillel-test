@@ -31,19 +31,18 @@
     <script>
       "use strict";
       const createTable = function (size = 100, cols = 10) {
-        let table = tag("table");
-        let tbody = tag("tbody");
+        const table = tag("table");
+        const tbody = tag("tbody");
         table.append(tbody);
         let nums = 1;
-        let currCol = 1;
-        let lines = size % cols === 0 ? size / cols : size / cols + 1;
+        const lines = size % cols === 0 ? size / cols : size / cols + 1;
 
         for (let i = 1; i <= lines; i++) {
-          let TR = tag("tr");
+          const TR = tag("tr");
           tbody.appendChild(TR);
 
           for (let j = 1; j <= cols; j++) {
-            let TD = tag("td");
+            const TD = tag("td");
             if (nums <= size) {
               TD.innerHTML = nums++;
             }
