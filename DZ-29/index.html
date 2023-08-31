@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>ДЗ 29. Форма для реєстрації</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <form class="registration-form" id="regform">
+          <div class="registration-form__field-wrapper">
+            <label for="fname" class="registration-form__field-label">First name:</label>
+            <input type="text" id="fname" name="Fname" class="registration-form__input" tabindex="1" required />
+          </div>
+          <div class="registration-form__field-wrapper">
+            <label for="lname" class="registration-form__field-label">Last name:</label>
+            <input type="text" id="lname" name="Lname" class="registration-form__input" tabindex="2" required />
+          </div>
+
+          <div class="registration-form__field-wrapper">
+            <label for="birth" class="registration-form__field-label" id="date-label">Date birth: format MM-DD-YYYY</label>
+            <input type="text" id="birth" name="Birth" class="registration-form__input" tabindex="3" pattern="\d{1,2}-\d{1,2}-\d{4}" />
+          </div>
+
+          <div class="registration-form__field-wrapper">
+            <fieldset class="registration-form__fieldset">
+              <legend class="registration-form__legend">Sex:</legend>
+              <div class="cols3">
+                <div class="col">
+                  <input type="radio" id="male" name="Sex" value="Male" class="registration-form__radio" tabindex="4" required />
+                  <label for="male" class="registration-form__radio-label">Male</label>
+                </div>
+                <div class="col">
+                  <input type="radio" id="fmale" name="Sex" value="Female" class="registration-form__radio" tabindex="5" required />
+                  <label for="fmale" class="registration-form__radio-label">Female</label>
+                </div>
+                <div class="col">
+                  <input type="radio" id="other" name="Sex" value="Other" class="registration-form__radio" tabindex="6" required />
+                  <label for="other" class="registration-form__radio-label">Other</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="registration-form__field-wrapper">
+            <label for="city" class="registration-form__field-label">City:</label>
+            <select name="City" id="city" class="registration-form__input" tabindex="7" required>
+              <option value="">--Please choose an option--</option>
+              <option value="amsterdam">Amsterdam</option>
+              <option value="baghdad">Baghdad</option>
+              <option value="xiamen">Xiamen</option>
+              <option value="zanzibar">Zanzibar</option>
+            </select>
+          </div>
+
+          <div class="registration-form__field-wrapper">
+            <label for="address" class="registration-form__field-label">Address:</label>
+            <textarea id="address" name="Address" class="registration-form__input" rows="5" cols="33" tabindex="8" required></textarea>
+          </div>
+
+          <div class="registration-form__field-wrapper">
+            <fieldset class="registration-form__fieldset">
+              <legend class="registration-form__legend">Languages:</legend>
+              <div class="cols3">
+                <div class="col">
+                  <input type="checkbox" id="english" name="Language" value="English" class="registration-form__radio" tabindex="9" />
+                  <label for="english" class="registration-form__radio-label">English</label>
+                </div>
+                <div class="col">
+                  <input type="checkbox" id="france" name="Language" value="France" class="registration-form__radio" tabindex="10" />
+                  <label for="france" class="registration-form__radio-label">France</label>
+                </div>
+                <div class="col">
+                  <input type="checkbox" id="spain" name="Language" value="Spain" class="registration-form__radio" tabindex="11" />
+                  <label for="spain" class="registration-form__radio-label">Spain</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <button class="registration-form__submit-button">Submit</button>
+        </form>
+      </div>
+    </main>
+    <script src="../lib/functionTag.js"></script>
+    <script>
+      "use strict";
+      const form = document.getElementById("regform");
+      const container = document.querySelector(".container");
+
+      const renderResults = function (formData, targetElement) {
+        const resultingTable = tag("table", "", { id: "restable" });
+        resultingTable.innerHTML = `<caption class="table-result__caption">FORM RESULTS</caption>`;
+
+        for (let [name, value] of formData) {
+          const TR = tag("tr");
+          TR.innerHTML = `<td>${name}</td><td>${value}</td>`;
+          resultingTable.appendChild(TR);
+        }
+        targetElement.replaceWith(resultingTable);
+      };
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (form.checkValidity()) {
+          renderResults(new FormData(form), form);
+        }
+      });
+    </script>
+  </body>
+</html>

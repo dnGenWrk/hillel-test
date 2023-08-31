@@ -1,0 +1,132 @@
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+html,
+body,
+main {
+  min-height: 100vh;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #221f1f;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  min-height: 100vh;
+  padding: 0 18px;
+}
+
+@media screen and (min-width: 600px) {
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}
+
+.registration-form {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.registration-form__field-label,
+.registration-form__legend {
+  font-size: 1.4rem;
+  margin-right: 8px;
+}
+.registration-form__input {
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 9px;
+  background-color: blueviolet;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid blueviolet;
+  transition: background 1.2s ease;
+}
+
+.registration-form__input:hover,
+.registration-form__input:focus {
+  background-color: magenta;
+  outline-offset: 2px;
+  outline: 2px solid black;
+}
+
+.registration-form__field-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-start;
+}
+
+.cols3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cols3 .col {
+  width: 32%;
+}
+.registration-form__radio-label {
+  font-size: 1.6rem;
+}
+.registration-form__fieldset {
+  border-radius: 8px;
+  border: 2px solid salmon;
+}
+
+.registration-form__submit-button {
+  width: 80%;
+  margin: 32px auto;
+  border-radius: 8px;
+  background: salmon;
+  color: rgb(51, 50, 50);
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 16px 12px;
+  border: 2px solid transparent;
+}
+
+.registration-form__submit-button:hover,
+.registration-form__submit-button:focus {
+  background: magenta;
+  color: #fff;
+  border-color: blueviolet;
+}
+
+#restable {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+#restable td {
+  text-align: center;
+  padding: 12px 0;
+  border: 1px solid;
+}
+#restable tr:nth-child(even) {
+  background: rgb(255, 184, 255);
+}
+
+.table-result__caption {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-size: 3rem;
+  color: salmon;
+  font-weight: 500;
+}
