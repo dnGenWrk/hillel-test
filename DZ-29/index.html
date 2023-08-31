@@ -92,10 +92,22 @@
       const renderResults = function (formData, targetElement) {
         const resultingTable = tag("table", "", { id: "restable" });
         resultingTable.innerHTML = `<caption class="table-result__caption">FORM RESULTS</caption>`;
+        let languages = [];
 
-        for (let [name, value] of formData) {
+        for (const [name, value] of formData) {
+          if (name !== "Language") {
+            const TR = tag("tr");
+            TR.innerHTML = `<td>${name}</td><td>${value}</td>`;
+            resultingTable.appendChild(TR);
+          } else {
+            languages.push(value);
+          }
+        }
+
+        if (languages.length > 0) {
+          const items = languages.join(", ");
           const TR = tag("tr");
-          TR.innerHTML = `<td>${name}</td><td>${value}</td>`;
+          TR.innerHTML = `<td>Languages:</td><td>${items}</td>`;
           resultingTable.appendChild(TR);
         }
         targetElement.replaceWith(resultingTable);
