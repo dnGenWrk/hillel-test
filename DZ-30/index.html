@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 28. Реалізувати подобу інтернет-магазину.</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="./src/form-style.css" />
+    <link rel="stylesheet" href="./src/results.css" />
+  </head>
+  <body>
+    <main>
+      <div class="products-order hidden" id="order-page"></div>
+      <div class="container" id="appwrapper">
+        <nav class="nav" id="navigation"></nav>
+        <section id="products" class="products"></section>
+        <section id="productsInfo" class="productsInfo">
+          <div class="product-card" id="prodCard"></div>
+          <div class="order-form" id="order-form">
+            <form id="orderform" name="orderform">
+              <div class="order-form__input-wrapper">
+                <label for="fname" class="order-form__label">First Name *</label>
+                <input type="text" class="order-form__input" id="fname" name="First Name" tabindex="1" value="" required />
+              </div>
+              <div class="order-form__input-wrapper">
+                <label for="lname" class="order-form__label">Last Name *</label>
+                <input type="text" class="order-form__input" id="lname" name="Last Name" tabindex="2" value="" required />
+              </div>
+              <div class="order-form__input-wrapper">
+                <label for="mname" class="order-form__label">Middle Name</label>
+                <input type="text" class="order-form__input" id="mname" name="Middle Name" tabindex="3" />
+              </div>
+              <div class="order-form__input-wrapper">
+                <label for="city" class="order-form__label">City: *</label>
+                <select name="City" id="city" class="order-form__input" tabindex="4" value="" required>
+                  <option value="">--Please choose an option--</option>
+                  <option value="kyiv">Kyiv</option>
+                  <option value="lviv">Lviv</option>
+                  <option value="odesa">Odesa</option>
+                </select>
+              </div>
+
+              <div class="order-form__input-wrapper">
+                <label for="storage" class="order-form__label">Nova Poshta warehouse for delivery *</label>
+                <input type="text" class="order-form__input" id="storage" name="Nova Poshta warehouse for delivery" tabindex="5" value="" required />
+              </div>
+
+              <div class="order-form__input-wrapper">
+                <label for="paymentMethod" class="order-form__label">Method of payment *</label>
+                <select name="Method of payment" id="paymentMethod" class="order-form__input" tabindex="6" value="" required>
+                  <option value="">--Please choose an option--</option>
+                  <option value="cashDelivery">Cash on delivery</option>
+                  <option value="creditCard">Credit card</option>
+                </select>
+              </div>
+
+              <div class="order-form__input-wrapper">
+                <label for="count" class="order-form__label">Item Counts *</label>
+                <input type="number" class="order-form__input" id="count" name="Counts" tabindex="7" min="1" value="" required />
+              </div>
+
+              <div class="order-form__input-wrapper">
+                <label for="comment" class="order-form__label">Comment to the order</label>
+                <textarea id="comment" name="Comment to the order" class="order-form__input" rows="5" cols="33" tabindex="8"></textarea>
+              </div>
+              <button class="order-form__button" data-productid="" id="order-button">Place your order</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="../lib/functionTag.js"></script>
+    <script src="./src/Products.js"></script>
+    <script src="./src/getProducts.js"></script>
+    <script src="./src/getAppCategory.js"></script>
+    <script src="./src/getAppProductId.js"></script>
+    <script src="./src/Menu.js"></script>
+    <script src="./src/createProductCards.js"></script>
+    <script>
+      "use strict";
+      (function () {
+        const category = getAppCategory();
+        const productId = getAppProductId();
+        const appWrapper = document.getElementById("appwrapper");
+        const productWrapper = document.getElementById("products");
+        const additionalInfoWrapper = document.getElementById("prodCard");
+
+        const nav = new Menu("navigation", allProducts);
+
+        const OrderForm = function () {
+          this.form = document.getElementById("orderform");
+          this.formButton = document.getElementById("order-button");
+          this.setProductId = function (id) {
+            this.prodid = id;
+          };
+          this.setProductName = function (produnctName) {
+            this.productName = produnctName;
+          };
+        };
+
+        const orderForm = new OrderForm();
+
+        if (category) {
+          const productCards = createProductCards(category);
+          productWrapper.appendChild(productCards);
+          productWrapper.addEventListener("click", function (e) {
+            e.preventDefault();
+            const prodId = e.target.dataset.productid;
+            if (prodId && prodId !== productId) {
+              document.location.href = `./index.html?category=${category}&productid=${prodId}`;
+            }
+          });
+
+          if (productId) {
+            const activeElement = document.querySelector(`[data-productid="${productId}"]`);
+            if (activeElement) {
+              activeElement.focus();
+              activeElement.classList.add("active");
+            }
+
+            const products = getProducts(category, allProducts);
+            const product = products.find((e) => e.productId == productId);
+            const content = tag(
+              "div",
+              `<h3>${product.name}</h3><p>${product.description}</p><button class="product-info__cta" data-prodid="${productId}" data-productName="${product.name}">Buy now</button>`
+            );
+            additionalInfoWrapper.append(content);
+            content.addEventListener("click", function (e) {
+              const buttonClassName = e.target.className;
+              if (buttonClassName === "product-info__cta") {
+                orderForm.setProductId(e.target.dataset.prodid);
+                orderForm.setProductName(e.target.dataset.productname);
+                const inputProductName = tag("input", "", {}, { type: "hidden", name: "Product Name", value: orderForm.productName });
+                orderForm.form.prepend(inputProductName);
+                e.target.hidden = true;
+                orderForm.form.classList.add("active", "form-animate");
+
+                const localFormData = JSON.parse(localStorage.formData);
+                if (localFormData) {
+                  document.getElementById("fname").value = localFormData["First Name"];
+                  document.getElementById("lname").value = localFormData["Last Name"];
+                  document.getElementById("city").value = localFormData["City"];
+                  document.getElementById("storage").value = localFormData["Nova Poshta warehouse for delivery"];
+                  document.getElementById("paymentMethod").value = localFormData["Method of payment"];
+                }
+              }
+            });
+          }
+        }
+
+        const createSummary = function (formData) {
+          const summaryWrapper = document.getElementById("order-page");
+          const results = [];
+
+          const tagTitle = tag("h2", "Order", { className: "result_header" });
+          const tagWrapper = tag("div", "", { className: "result__wrapper" });
+          tagWrapper.append(tagTitle);
+          for (const [key, value] of formData) {
+            const divRow = tag("div", `<div class="result__col1"><span>${key}</span></div><div class="result__col2"><span>${value}</span></div>`, {
+              className: "result__row",
+            });
+            tagWrapper.append(divRow);
+          }
+          summaryWrapper.append(tagWrapper);
+          appWrapper.classList.add("hidden");
+          summaryWrapper.classList.remove("hidden");
+        };
+
+        const ShopAppStorageForm = function (orderForm) {
+          this.formProps = {};
+          for (const [key, value] of orderForm) {
+            this.formProps[key] = value;
+          }
+
+          const strToStorage = JSON.stringify(this.formProps);
+          localStorage.formData = strToStorage;
+        };
+
+        orderForm.form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (orderForm.form.checkValidity()) {
+            const shopAppStorageForm = new ShopAppStorageForm(new FormData(orderForm.form));
+            createSummary(new FormData(orderForm.form));
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
