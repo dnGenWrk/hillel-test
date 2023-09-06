@@ -87,6 +87,8 @@
         const appWrapper = document.getElementById("appwrapper");
         const productWrapper = document.getElementById("products");
         const additionalInfoWrapper = document.getElementById("prodCard");
+        const nav = new Menu("navigation", allProducts);
+        const orderForm = new OrderForm();
 
         productWrapper.addEventListener("click", function (e) {
           e.preventDefault();
@@ -96,8 +98,13 @@
           }
         });
 
-        const nav = new Menu("navigation", allProducts);
-        const orderForm = new OrderForm();
+        orderForm.form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (orderForm.form.checkValidity()) {
+            const shopAppStorageForm = new ShopAppStorageForm(new FormData(orderForm.form));
+            createSummary(new FormData(orderForm.form), appWrapper);
+          }
+        });
 
         if (category) {
           const productCards = createProductCards(category);
@@ -119,6 +126,7 @@
             additionalInfoWrapper.append(content);
             content.addEventListener("click", function (e) {
               const buttonClassName = e.target.className;
+
               if (buttonClassName === "product-info__cta") {
                 orderForm.setProductId(e.target.dataset.prodid);
                 orderForm.setProductName(e.target.dataset.productname);
@@ -126,8 +134,8 @@
                 orderForm.form.prepend(inputProductName);
                 e.target.hidden = true;
                 orderForm.form.classList.add("active", "form-animate");
-
                 const localFormData = JSON.parse(localStorage.formData);
+
                 if (localFormData) {
                   document.getElementById("fname").value = localFormData["First Name"];
                   document.getElementById("lname").value = localFormData["Last Name"];
@@ -139,14 +147,6 @@
             });
           }
         }
-
-        orderForm.form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          if (orderForm.form.checkValidity()) {
-            const shopAppStorageForm = new ShopAppStorageForm(new FormData(orderForm.form));
-            createSummary(new FormData(orderForm.form), appWrapper);
-          }
-        });
       })();
     </script>
   </body>
