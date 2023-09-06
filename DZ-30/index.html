@@ -77,6 +77,7 @@
     <script src="./src/Menu.js"></script>
     <script src="./src/createProductCards.js"></script>
     <script src="./src/ShopAppStorageForm.js"></script>
+    <script src="./src/createSummary.js"></script>
     <script>
       "use strict";
       (function () {
@@ -150,29 +151,11 @@
           }
         }
 
-        const createSummary = function (formData) {
-          const summaryWrapper = document.getElementById("order-page");
-          const results = [];
-
-          const tagTitle = tag("h2", "Order", { className: "result_header" });
-          const tagWrapper = tag("div", "", { className: "result__wrapper" });
-          tagWrapper.append(tagTitle);
-          for (const [key, value] of formData) {
-            const divRow = tag("div", `<div class="result__col1"><span>${key}</span></div><div class="result__col2"><span>${value}</span></div>`, {
-              className: "result__row",
-            });
-            tagWrapper.append(divRow);
-          }
-          summaryWrapper.append(tagWrapper);
-          appWrapper.classList.add("hidden");
-          summaryWrapper.classList.remove("hidden");
-        };
-
         orderForm.form.addEventListener("submit", (e) => {
           e.preventDefault();
           if (orderForm.form.checkValidity()) {
             const shopAppStorageForm = new ShopAppStorageForm(new FormData(orderForm.form));
-            createSummary(new FormData(orderForm.form));
+            createSummary(new FormData(orderForm.form), appWrapper);
           }
         });
       })();
