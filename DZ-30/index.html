@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ДЗ 28. Реалізувати подобу інтернет-магазину.</title>
+    <title>ДЗ 30. Реалізувати подобу інтернет-магазину.</title>
     <link rel="stylesheet" href="./src/style.css" />
     <link rel="stylesheet" href="./src/form-style.css" />
     <link rel="stylesheet" href="./src/results.css" />
@@ -71,7 +71,6 @@
     </main>
     <script src="../lib/functionTag.js"></script>
     <script src="./src/Products.js"></script>
-    <script src="./src/getProducts.js"></script>
     <script src="./src/getAppCategory.js"></script>
     <script src="./src/getAppProductId.js"></script>
     <script src="./src/Menu.js"></script>
@@ -117,7 +116,7 @@
               activeElement.classList.add("active");
             }
 
-            const products = getProducts(category, allProducts);
+            const products = allProducts.get(category);
             const product = products.find((e) => e.productId == productId);
             const content = tag(
               "div",

@@ -1,6 +1,6 @@
 "use strict";
 const createProductCards = function (category) {
-  const products = getProducts(category, allProducts);
+  const products = allProducts.get(category);
   const productWrapper = tag("ul");
   products.forEach((element) => {
     const tagLi = tag("li");
