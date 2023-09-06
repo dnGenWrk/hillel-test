@@ -76,6 +76,7 @@
     <script src="./src/getAppProductId.js"></script>
     <script src="./src/Menu.js"></script>
     <script src="./src/createProductCards.js"></script>
+    <script src="./src/ShopAppStorageForm.js"></script>
     <script>
       "use strict";
       (function () {
@@ -84,6 +85,14 @@
         const appWrapper = document.getElementById("appwrapper");
         const productWrapper = document.getElementById("products");
         const additionalInfoWrapper = document.getElementById("prodCard");
+
+        productWrapper.addEventListener("click", function (e) {
+          e.preventDefault();
+          const prodId = e.target.dataset.productid;
+          if (prodId && prodId !== productId) {
+            document.location.href = `./index.html?category=${category}&productid=${prodId}`;
+          }
+        });
 
         const nav = new Menu("navigation", allProducts);
 
@@ -103,13 +112,6 @@
         if (category) {
           const productCards = createProductCards(category);
           productWrapper.appendChild(productCards);
-          productWrapper.addEventListener("click", function (e) {
-            e.preventDefault();
-            const prodId = e.target.dataset.productid;
-            if (prodId && prodId !== productId) {
-              document.location.href = `./index.html?category=${category}&productid=${prodId}`;
-            }
-          });
 
           if (productId) {
             const activeElement = document.querySelector(`[data-productid="${productId}"]`);
@@ -164,16 +166,6 @@
           summaryWrapper.append(tagWrapper);
           appWrapper.classList.add("hidden");
           summaryWrapper.classList.remove("hidden");
-        };
-
-        const ShopAppStorageForm = function (orderForm) {
-          this.formProps = {};
-          for (const [key, value] of orderForm) {
-            this.formProps[key] = value;
-          }
-
-          const strToStorage = JSON.stringify(this.formProps);
-          localStorage.formData = strToStorage;
         };
 
         orderForm.form.addEventListener("submit", (e) => {
