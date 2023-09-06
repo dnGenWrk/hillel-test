@@ -78,6 +78,7 @@
     <script src="./src/createProductCards.js"></script>
     <script src="./src/ShopAppStorageForm.js"></script>
     <script src="./src/createSummary.js"></script>
+    <script src="./src/OrderForm.js"></script>
     <script>
       "use strict";
       (function () {
@@ -96,18 +97,6 @@
         });
 
         const nav = new Menu("navigation", allProducts);
-
-        const OrderForm = function () {
-          this.form = document.getElementById("orderform");
-          this.formButton = document.getElementById("order-button");
-          this.setProductId = function (id) {
-            this.prodid = id;
-          };
-          this.setProductName = function (produnctName) {
-            this.productName = produnctName;
-          };
-        };
-
         const orderForm = new OrderForm();
 
         if (category) {
