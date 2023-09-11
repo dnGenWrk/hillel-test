@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 31. LocalStorage</title>
+  </head>
+  <link rel="stylesheet" href="./src/styles/style.css" />
+  <body>
+    <main id="appShop"></main>
+    <script src="../lib/functionTag.js"></script>
+    <script src="./src/Products.js"></script>
+    <script src="./src/layout/appLayout.js"></script>
+    <script src="./src/functions/generateMenu.js"></script>
+    <script src="./src/functions/genetateProductsSections.js"></script>
+    <script src="./src/functions/generateProductCard.js"></script>
+    <script src="./src/orders/ClassOrder.js"></script>
+    <script src="./src/orders/createOrderForm.js"></script>
+    <script src="./src/orders/createOrder.js"></script>
+    <script src="./src/functions/showPostOrderInfo.js"></script>
+    <script src="./src/functions/showOrdersUI.js"></script>
+    <script src="./src/orders/LocalOrders.js"></script>
+    <script src="./src/functions/createOrderReport.js"></script>
+    <script>
+      "use strict";
+      const appLayout = new AppLayout();
+      const menu = generateMenu(products);
+      const productSections = generateProductsSections(menu.categories, products);
+      appLayout.sideSection.append(menu.list);
+      menu.links = document.querySelectorAll(".appshop__menulinks");
+      if (localStorage.length > 0) {
+        showOrdersUI();
+      }
+
+      menu.list.addEventListener("click", function (e) {
+        e.preventDefault();
+        const clickItem = e.target.dataset.category;
+
+        if (clickItem) {
+          if (clickItem !== new URLSearchParams(document.location.search).get("category")) {
+            menu.links.forEach((element) => {
+              element.classList.remove("active");
+            });
+            e.target.classList.add("active");
+            history.pushState({ category: clickItem }, "state", `index.html?category=${clickItem}`);
+            appLayout.updateProductsListSection(clickItem, productSections);
+          }
+          const prodIdParam = new URLSearchParams(document.location.search).get("productid");
+          if (!prodIdParam) {
+            appLayout.clearProductsActiveLinks();
+            appLayout.clearProductInfoSection();
+          }
+        }
+      });
+
+      appLayout.generalSection.addEventListener("click", function (e) {
+        const productItem = e.target.dataset.productid;
+        if (productItem) {
+          e.preventDefault();
+          if (productItem !== new URLSearchParams(document.location.search).get("productid")) {
+            const currentCategory = new URLSearchParams(document.location.search).get("category");
+            appLayout.clearProductsActiveLinks();
+            const productsSectionLink = document.querySelector(`[data-productid="${productItem}"]`);
+            if (productsSectionLink) {
+              productsSectionLink.classList.add("active");
+            }
+
+            history.pushState(
+              { category: currentCategory, productid: productItem },
+              "state",
+              `index.html?category=${currentCategory}&productid=${productItem}`
+            );
+
+            const productCard = generateProductCard(productItem, products);
+            appLayout.updateProductInfoSection(productCard);
+          }
+        }
+      });
+
+      appLayout.additionSection.addEventListener("click", function (e) {
+        const productCardButton = e.target.classList.contains("product_card__button");
+        if (productCardButton) {
+          e.preventDefault();
+          const orderForm = createOrderForm(e.target.dataset.productid);
+          e.target.classList.add("hidden");
+          appLayout.additionSection.append(orderForm);
+          document.querySelector(".product_card").remove();
+          const localFormData = JSON.parse(localStorage.getItem("formdata"));
+
+          if (localFormData) {
+            document.getElementById("fname").value = localFormData["fname"];
+            document.getElementById("lname").value = localFormData["lname"];
+            document.getElementById("mname").value = localFormData["mname"];
+            document.getElementById("city").value = localFormData["city"];
+            document.getElementById("storage").value = localFormData["adress"];
+            document.getElementById("paymentMethod").value = localFormData["paymentMethod"];
+          }
+        }
+      });
+
+      appLayout.additionSection.addEventListener("click", function (e) {
+        const button = e.target.classList.contains("Place your order");
+        if (button) {
+          e.preventDefault();
+        }
+      });
+
+      appLayout.ordersUiBlock.addEventListener("click", function (e) {
+        if (e.target.classList.contains("myorders__button")) {
+          menu.list.classList.add("hidden");
+          const uiBlock = document.getElementById("local_orders");
+          if (uiBlock) {
+            uiBlock.remove();
+          }
+          const localOrders = new LocalOrders();
+          appLayout.ordersUiBlock.append(localOrders.wrapper);
+        }
+      });
+
+      window.onhashchange = function (e) {
+        const orderId = document.location.hash.slice(1);
+        if (orderId.includes("order")) {
+          const report = createOrderReport(orderId);
+          const productLists = document.querySelector(".productList_section");
+          if (productLists) {
+            productLists.remove();
+          }
+          const currentReportBlock = document.getElementById("orderreport");
+          if (currentReportBlock) {
+            currentReportBlock.remove();
+          }
+          appLayout.generalSection.append(report.wrapper);
+        }
+      };
+
+      window.onpopstate = function (event) {
+        if (event.state) {
+          if (event.state.productid !== null && event.state.productid !== undefined) {
+            const prodIdParam = event.state.productid;
+            const category = event.state.category;
+            appLayout.updateProductsListSection(category, productSections);
+            appLayout.clearProductsActiveLinks();
+            const productCard = generateProductCard(prodIdParam, products);
+            appLayout.updateProductInfoSection(productCard);
+            const productLinks = document.querySelector(`.productList_section__list [data-productid="${prodIdParam}"]`);
+            productLinks.classList.add("active");
+            const menuLinks = document.querySelectorAll(`.appshop__menulinks`);
+            menuLinks.forEach((e) => e.classList.remove("active"));
+            const menuLink = document.querySelector(`.appshop__list [data-category="${category}"]`);
+            if (menuLink) {
+              menuLink.classList.add("active");
+            }
+            return;
+          }
+          if (event.state.category !== null) {
+            const category = event.state.category;
+            const productCard = document.querySelector(".product_card");
+            if (productCard) {
+              productCard.remove();
+            }
+            const productsSection = document.querySelector(".productList_section");
+            if (productsSection) {
+              productsSection.remove();
+            }
+            const menuLinks = document.querySelectorAll(`.appshop__menulinks`);
+            menuLinks.forEach((e) => e.classList.remove("active"));
+            const menuLink = document.querySelector(`.appshop__list [data-category="${category}"]`);
+            if (menuLink) {
+              menuLink.classList.add("active");
+            }
+          }
+        }
+      };
+
+      const firstLoad = (function () {
+        const prodIdParam = new URLSearchParams(document.location.search).get("productid");
+        const category = new URLSearchParams(document.location.search).get("category");
+        if (prodIdParam !== null) {
+          history.pushState({ category: category, productid: prodIdParam }, "state", `index.html?category=${category}&productid=${prodIdParam}`);
+          appLayout.updateProductsListSection(category, productSections);
+          const menuLink = document.querySelector(`.appshop__list [data-category="${category}"]`);
+          menuLink.classList.add("active");
+
+          const productCard = generateProductCard(prodIdParam, products);
+          appLayout.updateProductInfoSection(productCard);
+          const productLinks = document.querySelector(`.productList_section__list [data-productid="${prodIdParam}"]`);
+          productLinks.classList.add("active");
+          return;
+        }
+        if (category !== null) {
+          history.pushState({ category: category }, "state", `index.html?category=${category}`);
+          appLayout.updateProductsListSection(category, productSections);
+          const menuLink = document.querySelector(`.appshop__list [data-category="${category}"]`);
+          if (menuLink) {
+            menuLink.classList.add("active");
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
