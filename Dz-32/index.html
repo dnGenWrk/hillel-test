@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 32. generateList</title>
+    <style>
+      li {
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body id="result">
+    <script src="../lib/functionTag.js"></script>
+    <script>
+      "use strict ";
+      function generateList(array) {
+        const ul = tag("ul");
+
+        array.forEach(function (element) {
+          let li = tag("li");
+          let liContent;
+
+          if (Array.isArray(element)) {
+            liContent = generateList(element);
+          } else {
+            liContent = document.createTextNode(element);
+          }
+
+          li.append(liContent);
+          ul.append(li);
+        });
+
+        return ul;
+      }
+      const inputArray = [5, 4, [1, 2, [15, 4]], 9];
+      const result = generateList(inputArray);
+
+      document.getElementById("result").append(result);
+    </script>
+  </body>
+</html>
