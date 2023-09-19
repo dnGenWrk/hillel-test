@@ -1,19 +1,24 @@
 "use strict";
 class AppLayout {
-  constructor() {
-    this.appMain = document.getElementById("appShop");
-    this.appWrapper = tag("div", "", { className: "appshop__wrapper" });
-    this.sideSection = tag("section", "", { id: "appSideSection", className: "appshop__sidesection" });
+  constructor(mainContaier) {
+    this.appMain = mainContaier;
     this.generalSection = tag("section", "", { id: "appGenetalSection", className: "appshop__generalsection" });
     this.additionSection = tag("section", "", { id: "additionSection", className: "appshop__additionsectioon" });
-    this.postOrderPage = tag("section", "", { id: "postorderSection", className: "appshop__postorderpage hidden" });
-    this.ordersUiBlock = tag("div", "", { id: "orders_ui_block", className: "ordersui_block" });
-    this.sideSection.prepend(this.ordersUiBlock);
-    this.appWrapper.append(this.sideSection, this.generalSection, this.additionSection);
-    this.appMain.append(this.appWrapper);
-    this.appMain.prepend(this.postOrderPage);
   }
 
+  render() {
+    const appWrapper = tag("div", "", { className: "appshop__wrapper" });
+    const sideSection = tag("section", "", { id: "appSideSection", className: "appshop__sidesection" });
+    const postOrderPage = tag("section", "", { id: "postorderSection", className: "appshop__postorderpage hidden" });
+    const ordersUiBlock = tag("div", "", { id: "orders_ui_block", className: "ordersui_block" });
+
+    sideSection.prepend(this.ordersUiBlock);
+    appWrapper.append(this.sideSection, this.generalSection, this.additionSection);
+
+    this.appMain.append(appWrapper);
+    this.appMain.append(postOrderPage);
+    return this;
+  }
   updateProductsListSection(category, productList) {
     const currentSection = document.querySelector(".productList_section");
     if (currentSection) {

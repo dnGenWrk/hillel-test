@@ -10,9 +10,9 @@
     <main id="appShop"></main>
     <script src="lib/functionTag.js"></script>
     <script src="./src/Products.js"></script>
-    <script src="./src/layout/appLayout.js"></script>
+    <script src="./src/layout/AppLayout.js"></script>
     <script src="./src/functions/generateMenu.js"></script>
-    <script src="./src/functions/genetateProductsSections.js"></script>
+    <script src="./src/functions/generateProductsSections.js"></script>
     <script src="./src/functions/generateProductCard.js"></script>
     <script src="./src/orders/ClassOrder.js"></script>
     <script src="./src/orders/createOrderForm.js"></script>
@@ -23,7 +23,7 @@
     <script src="./src/functions/createOrderReport.js"></script>
     <script>
       "use strict";
-      const appLayout = new AppLayout();
+      const appLayout = new AppLayout(document.getElementById("appShop")).render();
       const menu = generateMenu(products);
       const productSections = generateProductsSections(menu.categories, products);
       appLayout.sideSection.append(menu.list);
