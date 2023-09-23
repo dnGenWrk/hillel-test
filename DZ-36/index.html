@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 36. Promise</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="result" id="result"></div>
+        <form id="posts" class="form">
+          <div class="form__input-wrapper">
+            <input type="number" id="postid" name="postid" min="1" max="100" required />
+          </div>
+          <button id="cta-button" class="form__sumbit">Find Post By Id</button>
+        </form>
+      </div>
+    </main>
+    <script src="../lib/functionTag.js"></script>
+    <script>
+      "use strict";
+      const resultWrapper = document.getElementById("result");
+      const form = document.getElementById("posts");
+      const formButton = document.getElementById("cta-button");
+      const api = "https://jsonplaceholder.typicode.com/";
+      const input = document.getElementById("postid");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (form.checkValidity()) {
+          const fData = new FormData(form);
+          const postId = fData.get("postid");
+          formButton.disabled = true;
+          let postData = "";
+          fetch(`${api}posts?id=${postId}`)
+            .then((response) => {
+              if (!response.ok) {
+                console.log("Response status err");
+                return;
+              }
+              return response.json();
+            })
+            .then((json) => {
+              postData = getPostData(json, postId);
+              renderPost(postData);
+              postData.cta.addEventListener("click", renderComments);
+            })
+            .catch(function (err) {
+              const reqErrBlock = tag("div", `Fetch Error please try again :  ${err}`, { className: "errorBlock" });
+              if (resultWrapper.hasChildNodes()) {
+                resultWrapper.removeChild(resultWrapper.children[0]);
+              }
+              resultWrapper.append(reqErrBlock);
+            });
+        }
+      });
+
+      function renderComments() {
+        const postId = this.dataset.postid;
+        const button = this;
+        let comments = "";
+        fetch(`${api}comments?postId=${postId}`)
+          .then((response) => {
+            if (!response.ok) {
+              console.log("Response status err");
+              return;
+            }
+            return response.json();
+          })
+          .then((json) => {
+            button.remove();
+            const commentsWrapper = tag("div", "", { className: "comments-wrapper" });
+            json.forEach((element) => {
+              const elem = tag(
+                "div",
+                `<h4 class="comments-title">${element.name}</h4><p class="comments-body">${element.body}</p><p class="comments-user-mail">${element.email}</p>`
+              );
+              commentsWrapper.append(elem);
+            });
+
+            document.querySelector(".post-wrapper").append(commentsWrapper);
+          })
+          .catch(function (err) {
+            const reqErrBlock = tag("div", `Fetch Error please try again : ${err}`, { className: "errorBlock" });
+            if (resultWrapper.hasChildNodes()) {
+              resultWrapper.removeChild(resultWrapper.children[0]);
+            }
+            resultWrapper.append(reqErrBlock);
+          });
+      }
+
+      function getPostData(json, postId) {
+        const postTitle = json[0].title;
+        const postText = json[0].body;
+        const userId = json[0].userId;
+        const postWrapper = tag(
+          "div",
+          `<h2 class="post-title">${postTitle}</h2><p class="post-text">${postText}</p><p class="post-author">User ID: ${userId}</p>`,
+          { className: "post-wrapper" }
+        );
+        const postButtonComments = tag("button", "Get Comments", { id: "comments-cta", className: "comments-cta" }, { "data-postid": postId });
+        postWrapper.append(postButtonComments);
+        return { wrapper: postWrapper, cta: postButtonComments };
+      }
+
+      function renderPost(post) {
+        if (resultWrapper.hasChildNodes()) {
+          resultWrapper.removeChild(resultWrapper.children[0]);
+        }
+        resultWrapper.classList.add("active-posts");
+        resultWrapper.append(post.wrapper);
+      }
+
+      input.onchange = function () {
+        formButton.disabled = false;
+      };
+    </script>
+  </body>
+</html>
