@@ -43,7 +43,7 @@
               return response.json();
             })
             .then((json) => {
-              postData = getPostData(json, postId);
+              postData = createPostHtml(json, postId);
               renderPost(postData);
               postData.cta.addEventListener("click", renderComments);
             })
@@ -91,7 +91,7 @@
           });
       }
 
-      function getPostData(json, postId) {
+      function createPostHtml(json, postId) {
         const postTitle = json[0].title;
         const postText = json[0].body;
         const userId = json[0].userId;
