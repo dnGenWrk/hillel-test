@@ -60,7 +60,6 @@
       function renderComments() {
         const postId = this.dataset.postid;
         const button = this;
-        let comments = "";
         fetch(`${api}comments?postId=${postId}`)
           .then((response) => {
             if (!response.ok) {
