@@ -48,11 +48,7 @@
               postData.cta.addEventListener("click", renderComments);
             })
             .catch(function (err) {
-              const reqErrBlock = tag("div", `Fetch Error please try again :  ${err}`, { className: "errorBlock" });
-              if (resultWrapper.hasChildNodes()) {
-                resultWrapper.removeChild(resultWrapper.children[0]);
-              }
-              resultWrapper.append(reqErrBlock);
+              renderErrBlock(resultWrapper, err);
             });
         }
       });
@@ -82,11 +78,7 @@
             document.querySelector(".post-wrapper").append(commentsWrapper);
           })
           .catch(function (err) {
-            const reqErrBlock = tag("div", `Fetch Error please try again : ${err}`, { className: "errorBlock" });
-            if (resultWrapper.hasChildNodes()) {
-              resultWrapper.removeChild(resultWrapper.children[0]);
-            }
-            resultWrapper.append(reqErrBlock);
+            renderErrBlock(resultWrapper, err);
           });
       }
 
@@ -110,6 +102,14 @@
         }
         resultWrapper.classList.add("active-posts");
         resultWrapper.append(post.wrapper);
+      }
+
+      function renderErrBlock(wrapper, err) {
+        const reqErrBlock = tag("div", `Fetch Error please try again : ${err}`, { className: "errorBlock" });
+        if (wrapper.hasChildNodes()) {
+          wrapper.removeChild(wrapper.children[0]);
+        }
+        wrapper.append(reqErrBlock);
       }
 
       input.onchange = function () {
