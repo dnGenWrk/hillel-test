@@ -3,7 +3,8 @@
 function generateMenu(productsList) {
   const result = {};
   const categories = new Set();
-  products.forEach((e) => categories.add(e.category));
+  productsList.forEach((e) => categories.add(e.category));
+
   const nav = tag("nav", "", {className: "appshop__menu"});
   const ul = tag("ul", "", {className: "appshop__list"});
   categories.forEach((element) => {
