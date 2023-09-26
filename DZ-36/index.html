@@ -33,7 +33,6 @@
           const fData = new FormData(form);
           const postId = fData.get("postid");
           formButton.disabled = true;
-          let postData = "";
           fetch(`${api}posts?id=${postId}`)
             .then((response) => {
               if (!response.ok) {
@@ -43,7 +42,7 @@
               return response.json();
             })
             .then((json) => {
-              postData = createPostHtml(json, postId);
+              const postData = createPostHtml(json, postId);
               renderPost(postData);
               postData.cta.addEventListener("click", renderComments);
             })
