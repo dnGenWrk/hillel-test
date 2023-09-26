@@ -1,18 +1,20 @@
 "use strict";
 function generateProductsSections(categories, productsList) {
   const result = new Map();
-  categories.forEach((element) => {
-    const section = tag("section", "", { className: "productList_section" }, { "data-category": element });
+
+
+  categories.forEach((categoryName) => {
+    const section = tag("section", "", { className: "productList_section" }, { "data-category": categoryName });
     const sectionList = tag("ul", "", { className: "productList_section__list" });
     productsList.forEach((e) => {
-      if (e.category === element) {
+      if (e.category === categoryName) {
         const li = tag("li");
         const link = tag(
           "a",
           e.name,
           {
             classList: "productList_section__links",
-            href: `index.html?category=${element}&productid=${e.productId}`,
+            href: `index.html?category=${categoryName}&productid=${e.productId}`,
             title: `${e.name} you can buy here`,
           },
           { "data-productid": e.productId }
@@ -25,7 +27,7 @@ function generateProductsSections(categories, productsList) {
         section.append(sectionList);
       }
     });
-    result.set(element, section);
+    result.set(categoryName, section);
   });
 
   return result;
