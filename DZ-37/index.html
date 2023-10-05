@@ -24,11 +24,11 @@
 
       for (const key in models) {
         console.log(key + ":");
-        let props = "";
+        let props = [];
         Object.entries(models[key]).forEach(([key, value]) => {
-          props += `${key}: ${value}, `;
+          props.push(`${key}: "${value}"`);
         });
-        console.log(props);
+        console.log(props.join(", "));
         console.log("\n");
       }
     </script>
