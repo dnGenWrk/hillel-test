@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 37. Spread operator, destructuring assignment</title>
+  </head>
+  <body>
+    <script>
+      "use strict";
+
+      const car = { brand: "", model: "", color: "" };
+      const updatedProperties = { type: "" };
+      Object.assign(car, updatedProperties);
+      const electro = Object.assign({}, car, { type: "electro", maxDistance: 0 });
+      const common = Object.assign({}, car, { type: "common", gas: "", gearBox: "" });
+
+      const models = {
+        tesla: { ...electro, brand: "Tesla", model: "S Plaid", maxDistance: 850 },
+        leaf: { ...electro, brand: "Nissan", model: "Leaf", maxDistance: 270 },
+        x5: { ...common, brand: "BMW", model: "X5", color: "", type: "common", gas: "Diesel", gearBox: "auto" },
+        kenga: { ...common, brand: "Renault", model: "Kangoo", color: "", type: "common", gas: "Petrol", gearBox: "mechanic" },
+      };
+
+      for (const key in models) {
+        console.log(key + ":");
+        let props = "";
+        Object.entries(models[key]).forEach(([key, value]) => {
+          props += `${key}: ${value}, `;
+        });
+        console.log(props);
+        console.log("\n");
+      }
+    </script>
+  </body>
+</html>
