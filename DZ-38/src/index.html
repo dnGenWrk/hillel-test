@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 35. Ajax Weather</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form">
+        <form id="wform">
+          <div class="wform__input-wrapper">
+            <label for="city" class="wform__label">Select please a city: </label>
+            <select name="city" id="city" class="wform__input" tabindex="1" value="" required>
+              <option value="">--Please choose an option--</option>
+              <option value="kyiv">Kyiv</option>
+              <option value="kharkiv">Kharkiv</option>
+              <option value="dnipro">Dnipro</option>
+              <option value="zaporizhzhia">Zaporizhzhia</option>
+              <option value="lviv">Lviv</option>
+              <option value="odesa">Odesa</option>
+            </select>
+          </div>
+          <div class="cta-wrapper">
+            <button type="submit" id="ctaButton" class="cta-button">Check the weather</button>
+          </div>
+        </form>
+      </div>
+      <div class="weather-result-wrapper" id="wres"></div>
+    </div>
+    <!--
+    <script src="../src/scripts/lib/functionTag.js"></script>
+    <script src="../src/scripts/main.js"></script>
+-->
+    <script src="./scripts/script.js"></script>
+  </body>
+</html>
