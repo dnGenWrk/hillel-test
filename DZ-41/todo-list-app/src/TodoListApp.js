@@ -6,12 +6,9 @@ function TodoListApp(list) {
 
   function handleCheckBoxClick(e) {
     const targetId = e.target.id.split("-").pop();
-
-    if (e.target.checked) {
-      setList(Object.assign([], listToDo, (listToDo[targetId].status = true)));
-    } else {
-      setList(Object.assign([], listToDo, (listToDo[targetId].status = false)));
-    }
+    const newCheckBoxes = [...listToDo];
+    newCheckBoxes[targetId].status = !newCheckBoxes[targetId].status;
+    setList(newCheckBoxes);
   }
 
   const handleAdd = (e) => {
