@@ -1,0 +1,114 @@
+@-webkit-keyframes backInUp {
+  0% {
+    -webkit-transform: translateY(1200px) scale(0.7);
+    transform: translateY(1200px) scale(0.7);
+    opacity: 0.7;
+  }
+  80% {
+    -webkit-transform: translateY(0) scale(0.7);
+    transform: translateY(0) scale(0.7);
+    opacity: 0.7;
+  }
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes backInUp {
+  0% {
+    -webkit-transform: translateY(200px) scale(0.7);
+    transform: translateY(200px) scale(0.7);
+    opacity: 0.7;
+  }
+  80% {
+    -webkit-transform: translateY(0) scale(0.7);
+    transform: translateY(0) scale(0.7);
+    opacity: 0.7;
+  }
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate__backInUp {
+  -webkit-animation-name: backInUp;
+  animation-name: backInUp;
+}
+
+$layout-breakpoint-md: 768px;
+$layout-breakpoint-xl: 1200px;
+
+.todo-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  font-size: 1.8rem;
+  @media screen and (min-width: $layout-breakpoint-md) {
+    padding: 0 32px;
+  }
+
+  @media screen and (min-width: $layout-breakpoint-xl) {
+    padding: 0;
+    width: 1200px;
+    margin: 0 auto;
+  }
+  .todo-list__title {
+    font-size: 3rem;
+    font-weight: bold;
+    border-bottom: 1px solid;
+    margin-top: 32px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    @media screen and (min-width: $layout-breakpoint-xl) {
+      max-width: 60%;
+    }
+  }
+  .todo-list__list {
+    cursor: pointer;
+    .todo-list__listLi {
+      margin-bottom: 18px;
+      cursor: pointer;
+
+      animation-duration: 1s;
+
+      animation-fill-mode: both;
+
+      animation-name: backInUp;
+    }
+    .todo-list__label {
+      cursor: pointer;
+    }
+  }
+  .todo-list__form {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    @media screen and (min-width: $layout-breakpoint-md) {
+      max-width: 400px;
+    }
+    .todo-list__taskInput {
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+    .todo-list__cta {
+      background-color: #222;
+      color: #fff;
+      font-size: 1.6rem;
+      margin-top: 22px;
+      padding: 8px;
+      border: 3px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        background-color: #5b5a5a;
+
+        border: 3px solid red;
+      }
+    }
+  }
+}
