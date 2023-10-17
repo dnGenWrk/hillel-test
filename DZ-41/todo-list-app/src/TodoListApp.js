@@ -1,52 +1,27 @@
 import "./todo-list-styles.scss";
 import React, { useState } from "react";
-
+import Task from "./Task";
 function TodoListApp(props) {
-  const [listToDo, setList] = useState(props.list);
+  const [listToDo, setToDoList] = useState(props.list);
 
-  function handleCheckBoxClick(id) {
-    const newCheckBoxes = listToDo.map((el) => {
-      if (el.id === id) {
-        el.status = !el.status;
-      }
-      return el;
-    });
-
-    setList(newCheckBoxes);
-  }
-
-  const handleAdd = (e) => {
-    e.preventDefault();
-    const taskTitle = e.currentTarget.elements.taskInput.value;
+  function handleAdd(evt) {
+    evt.preventDefault();
+    const taskTitle = evt.currentTarget.elements.taskInput.value;
     const duplicate = listToDo.find(function (item) {
       return item.title === taskTitle;
     });
-
     if (taskTitle && !duplicate) {
-      setList(listToDo.concat({ id: listToDo.length + 1, title: taskTitle, status: false }));
+      setToDoList((prev) => {
+        return [...prev, { id: listToDo.length + 1, title: taskTitle, status: false }];
+      });
     }
-  };
-
+  }
   return (
     <div className="todo-list-wrapper">
       <h1 className="todo-list__title">TODO List</h1>
       <ul className="todo-list__list">
-        {listToDo.map((element) => {
-          return (
-            <li key={element.id} className="todo-list__listLi">
-              <label name={`task-${element.id}`} className="todo-list__label">
-                {element.title}
-                <input
-                  type="checkbox"
-                  id={`task-${element.id}`}
-                  checked={element.status}
-                  onChange={() => {
-                    handleCheckBoxClick(element.id);
-                  }}
-                ></input>
-              </label>
-            </li>
-          );
+        {listToDo.map((task) => {
+          return <Task {...task} key={task.id} />;
         })}
       </ul>
       <form id="tsk-form" onSubmit={handleAdd} className="todo-list__form">
