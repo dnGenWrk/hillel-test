@@ -1,0 +1,81 @@
+.app-wrapper {
+  padding: 0 18px;
+}
+.App {
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 1.2px;
+  color: rgb(74, 64, 64);
+}
+.App-header {
+  min-height: 10vh;
+  &__title {
+    text-decoration: underline;
+    margin-bottom: 32px;
+  }
+  @media screen and (min-width: 1200px) {
+    min-height: 20vh;
+  }
+}
+.App-section {
+  &__form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    input {
+      border: 1px solid blue;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 2rem;
+    }
+    .form-err-field {
+      margin-top: 12px;
+      height: 16px;
+      font-size: 1.2rem;
+      color: red;
+    }
+    label {
+      align-self: flex-start;
+      margin-bottom: 8px;
+      font-size: 1.6rem;
+    }
+    @media screen and (min-width: 1200px) {
+      width: 800px;
+    }
+  }
+}
+
+.form-cta {
+  background-color: #222;
+  color: wheat;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  max-width: fit-content;
+  margin: 28px auto;
+  font-size: 3rem;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background-color: rgb(177, 173, 177);
+    color: #222;
+  }
+}
+
+.App-result-section {
+  margin-top: 24px;
+  margin-bottom: 48px;
+  font-size: 1.8rem;
+  &__title {
+    font-size: 3rem;
+    color: magenta;
+    margin-bottom: 22px;
+  }
+  &__content {
+    color: #a65454;
+  }
+  p {
+    margin-bottom: 14px;
+  }
+}
