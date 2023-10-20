@@ -1,0 +1,104 @@
+.app-wrapper {
+  padding: 0 18px;
+}
+.app-header {
+  padding-top: 56px;
+  padding-bottom: 48px;
+  font-size: 2rem;
+  background-color: bisque;
+  margin-left: -18px;
+  margin-right: -18px;
+  &__title {
+    padding-left: 18px;
+  }
+}
+
+.app-nav {
+  font-size: 1.8rem;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  &__link a {
+    color: rebeccapurple;
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid rebeccapurple;
+    text-decoration: none;
+  }
+  &__link a:hover,
+  &__link a:focus {
+    background-color: rebeccapurple;
+    color: wheat;
+  }
+}
+.app-title {
+  font-size: 3rem;
+  margin-bottom: 18px;
+  color: rebeccapurple;
+}
+.app-content {
+  border-top: 1px solid rebeccapurple;
+  color: maroon;
+  padding-top: 12px;
+}
+
+.users-list {
+  li {
+    margin-bottom: 12px;
+  }
+  .user-link {
+    font-size: 1.6rem;
+    text-decoration: none;
+  }
+}
+.user-info-additions {
+  margin-top: 28px;
+  font-size: 1.4rem;
+  color: rebeccapurple;
+  &__title {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    text-decoration: underline;
+  }
+}
+.user-info-additions__list {
+  font-size: 1.6rem;
+  li {
+    margin-bottom: 12px;
+  }
+}
+.general-button {
+  border: 1px solid rebeccapurple;
+  color: rebeccapurple;
+  font-size: 1.4rem;
+  padding: 6px 10px;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background-color: rebeccapurple;
+    color: wheat;
+  }
+}
+
+.app-albums {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  color: #3e106d;
+}
+
+.album-item-button {
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #ec7710;
+    text-decoration: underline;
+    box-shadow: none;
+  }
+}
+
+.album-images {
+  display: flex;
+  flex-wrap: wrap;
+}
