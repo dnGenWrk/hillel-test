@@ -1,24 +1,26 @@
 import "./App.scss";
-import UsersList from "./pages/UsersList";
-import UsersDetails from "./pages/UserDetails";
+import Home from "./pages/Home";
+import Details from "./pages/Details";
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getUsers } from "./api";
 import React from "react";
-import { createContext } from "react";
-
-export let usersData = [];
 
 async function loadUserDetails(param) {
   return param;
 }
 
-export const UsersDetailsContext = createContext(null);
-
 function App() {
-  function setUsersFromRequest(users) {
-    usersData = users;
-  }
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const data = getUsers();
+    data.then((response) => {
+      setUsers(response);
+    });
+  }, []);
 
   const router = createBrowserRouter([
     {
@@ -28,16 +30,16 @@ function App() {
       children: [
         {
           path: "",
-          element: <UsersList setUsersFromRequest={setUsersFromRequest} />,
+          element: <Home users={users} />,
         },
         {
-          path: "userdetails",
-          element: <UsersDetails />,
+          path: "details",
+          element: <Details users={users} />,
         },
         {
-          path: "userdetails/:userid",
+          path: "details/:userid",
 
-          element: <UsersDetails />,
+          element: <Details users={users} />,
           loader: loadUserDetails,
         },
       ],
