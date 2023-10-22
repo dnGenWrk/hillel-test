@@ -1,0 +1,106 @@
+@import "./scss_vars.scss";
+.todo-task {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 2px;
+  border-bottom: 1px dashed $color-general-dark;
+  color: $color-dark-lighter;
+  margin-bottom: 12px;
+  &:last-child {
+    border-bottom: none;
+  }
+  .task-button {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    &:hover {
+      // background-color: $color-dark-lighter-x2;
+      font-weight: bold;
+    }
+
+    .task-status-img-container {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      &:before {
+        content: "";
+        width: 16px;
+        display: inline-block;
+      }
+      img {
+        display: none;
+      }
+    }
+    &__text {
+      text-align: left;
+    }
+  }
+  button {
+    color: $color-dark-lighter;
+  }
+
+  .task-edit-button-container {
+    width: 60px;
+  }
+  .task-remove-button-container {
+    width: 86px;
+  }
+
+  .task-button-control {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    justify-content: row;
+    &__name {
+      margin-right: 6px;
+    }
+    &:last-child {
+      margin-left: 12px;
+    }
+    &:hover {
+      // background-color: $color-dark-lighter-x2;
+      font-weight: bold;
+    }
+    &:hover .task-button-control__name,
+    &:focus .task-button-control__name {
+      text-decoration: underline;
+    }
+  }
+  .edit-button {
+    display: none;
+  }
+  &.completed {
+    .task-button {
+      color: $color-dark-lighter-x2;
+
+      .task-status-img-container {
+        &:before {
+          content: "";
+          width: 16px;
+          display: none;
+        }
+        img {
+          display: block;
+        }
+      }
+      .task-button__text {
+        text-decoration: line-through;
+      }
+    }
+    .edit-button {
+      display: flex;
+    }
+  }
+}
+
+

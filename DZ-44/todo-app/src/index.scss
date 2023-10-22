@@ -1,0 +1,76 @@
+@import "./reset.css";
+@import "./scss_vars.scss";
+:root {
+  font-size: 10px;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  overflow: hidden;
+
+  &__header {
+    flex: 0 0 auto;
+    background-color: #dcdcdc;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  &__content {
+    flex: 1 1 auto;
+    position: relative;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    flex: 0 0 auto;
+    background-color: #dcdcdc;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  &__footnote {
+    font-size: 1.2rem;
+    text-align: center;
+    color: $color-dark-lighter;
+  }
+
+  &__title {
+    font-size: 3rem;
+    color: $color-general-dark;
+    letter-spacing: 1.2px;
+  }
+}
+
+.container {
+  padding: 0 12px;
+  @media screen and (min-width: $breakpoint-md) {
+    padding: 0 24px;
+  }
+  @media screen and (min-width: $breakpoint-lg) {
+    padding: 0;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+}
