@@ -21,16 +21,7 @@ export const COMMANDS = {
   ADD_TODOTASK_ERROR: "addtodotaskerror",
 };
 
-/*
-export const testAction = (todo) => {
-  return {
-    type: COMMANDS.SET_TODOLIST,
-    payload: todo,
-  };
-};
-*/
 export default function reducer(state = initState, action) {
-  //console.log(state);
   switch (action.type) {
     case COMMANDS.SET_TODOLIST:
       return { ...state, todoList: [action.payload] };

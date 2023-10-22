@@ -13,7 +13,6 @@ export const EDIT_COMMANDS = {
 };
 
 export default function reducer(state = initState, action) {
-  //console.log(state);
   switch (action.type) {
     case EDIT_COMMANDS.CHANGE_VISIBILITY:
       return { ...state, showEditBlok: !state.showEditBlok, taskid: action.payload };

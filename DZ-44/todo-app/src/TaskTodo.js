@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { COMMANDS } from "./todoAppReducer";
+import { EDIT_COMMANDS } from "./editTaskReducer";
 import { generateId } from "./helpers";
 
-export default function TaskTodo({ done, id, title, handleEdit }) {
+export default function TaskTodo({ done, id, title }) {
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +20,7 @@ export default function TaskTodo({ done, id, title, handleEdit }) {
           className="task-button-control edit-button"
           data-taskid={id}
           onClick={() => {
-            handleEdit(id);
+            dispatch({ type: EDIT_COMMANDS.CHANGE_VISIBILITY, payload: id });
           }}
         >
           <span className="task-button-control__name">Edit</span> <img src="images/task-edit.svg" alt="img" />
