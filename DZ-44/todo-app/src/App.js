@@ -9,7 +9,7 @@ import "./ToDoTask.scss";
 import "./App.scss";
 
 function App() {
-  const state = useSelector((state) => state.todolist);
+  const state = useSelector((state) => state.todolist.todoList);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>{state.todoList.length > 0 && state.todoList.map((task) => <TaskTodo {...task} key={generateId()} />)}</div>
+      <div>{state.length > 0 && state.map((task) => <TaskTodo {...task} key={generateId()} />)}</div>
       <AddTask />
       <EditTask />
     </div>

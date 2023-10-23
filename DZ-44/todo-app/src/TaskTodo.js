@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { COMMANDS } from "./todoAppReducer";
 import { EDIT_COMMANDS } from "./editTaskReducer";
-import { generateId } from "./helpers";
 
 export default function TaskTodo({ done, id, title }) {
   const dispatch = useDispatch();
