@@ -9,7 +9,7 @@ import "./ToDoTask.scss";
 import "./App.scss";
 
 function App() {
-  const state = useSelector((state) => state.todolist.todoList);
+  const state = useSelector((state) => state.taskStore.todoList);
   const dispatch = useDispatch();
 
   useEffect(() => {

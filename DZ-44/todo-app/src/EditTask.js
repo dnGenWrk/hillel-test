@@ -3,7 +3,7 @@ import { COMMANDS } from "./todoAppReducer";
 import { EDIT_COMMANDS } from "./editTaskReducer";
 
 export default function EditTask() {
-  const state = useSelector((state) => state.todolist);
+  const state = useSelector((state) => state.taskStore);
   const stateEdits = useSelector((state) => state.editState);
   const dispatch = useDispatch();
 

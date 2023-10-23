@@ -3,7 +3,7 @@ import { COMMANDS } from "./todoAppReducer";
 import { generateId } from "./helpers";
 
 export default function AddTask() {
-  const state = useSelector((state) => state.todolist);
+  const state = useSelector((state) => state.taskStore);
   const dispatch = useDispatch();
 
   function handleAdd(evt) {
