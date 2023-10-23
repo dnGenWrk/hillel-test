@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>{state.length > 0 && state.map((task) => <TaskTodo {...task} key={generateId()} />)}</div>
+      <div>{state.length && state.map((task) => <TaskTodo {...task} key={generateId()} />)}</div>
       <AddTask />
       <EditTask />
     </div>
