@@ -29,6 +29,7 @@
       }
       .tsk-edit-form__cancel,
       .tsk-edit-form__save {
+        cursor: pointer;
         background-color: wheat;
         border: none;
         border-radius: 4px;
@@ -36,6 +37,8 @@
     }
   }
   .edit-tasks-block {
+    animation-name: fadeIn;
+    animation-duration: 0.8s;
     .tsk-form-erros {
       text-align: center;
     }
